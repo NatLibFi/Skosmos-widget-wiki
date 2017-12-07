@@ -12,7 +12,7 @@ WIKI = {
         generateWikidataQueryURL: function(id) {
             return 'http://www.wikidata.org/wiki/Special:EntityData/' + id +'.json?callback=?';
         },
-        // Makes the queries to the Finna API.
+        // queries the wikidata API.
         queryWiki: function (data) {
             //TODO: read the wikidata id from the Finto API
             var wikidataid = 'Q1571816';

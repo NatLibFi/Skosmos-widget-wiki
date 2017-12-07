@@ -1,0 +1,6 @@
+{
+    "js": ["widget.js"],
+    "callback": ["wikiwidget"],
+    "css": ["stylesheet.css"],
+    "templates": ["template.html"]
+}

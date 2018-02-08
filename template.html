@@ -1,0 +1,25 @@
+<div class="concept-widget panel-group" id="wikiAccordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingWiki">
+            {{#if succeeded}}
+            <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
+                {{wikipediaCaption}}
+            </a>{{prefLang}}
+            {{else}}
+            {{wikipediaCaption}}
+            {{/if}}
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
+                <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}{{#unless succeeded}} greyed-out{{/unless}}" aria-hidden="true"></span></a>
+        </div>
+        <div id="collapseWiki" class="panel-collapse collapse{{#if opened}} in{{/if}}" role="tabpanel" aria-labelledby="headingWiki">
+            {{#if succeeded}}
+            <div class="panel-body">
+                <div id="wiki" class="panel" role="tabpanel" aria-labelledby="headingWikiWidget">
+                    {{{data}}}
+                </div>
+            </div>
+            <div class="wikipedia-terms">{{{wikipediaTermsAndConditions}}}</div>
+            {{/if}}
+        </div>
+    </div>
+</div>

@@ -2,45 +2,221 @@
 var WIKI = WIKI || {};
 
 WIKI = {
-    widget: {
-        render: function (data) {
-            //TODO: render the data
-        },
-        generateWikimediaQueryURL: function(title) {
-            return 'https://' + content_lang +'.wikipedia.org/api/rest_v1/page/html/' + encodeURIComponent(title);
-        },
-        generateWikidataQueryURL: function(id) {
-            return 'http://www.wikidata.org/wiki/Special:EntityData/' + id +'.json?callback=?';
-        },
-        // queries the wikidata API.
-        queryWiki: function (data) {
-            //TODO: read the wikidata id from the Finto API
-            var wikidataid = 'Q1571816';
-            var url = this.generateWikidataQueryURL(wikidataid);
-            $.get(url, function(data) {
-                var entity = data.entities[wikidataid]
-                if (entity && entity.sitelinks) {
-                    if (entity.sitelinks[content_lang + 'wiki']) {
-                        return entity.sitelinks[content_lang + 'wiki'].title;
-                    }
-                }
-            });
+    getTranslation: function (key) {
+        var getLang = lang;
+        if (lang !== "fi" && lang !== "sv") {
+            getLang = "en";
         }
+        if (key === "404") {
+            return {
+                "fi": "Ei wikipedia-sivua sanaston tukemalla kielellä.",
+                "sv": "Inte något wikipedia-sidan på vokabulär språk.",
+                "en": "No wikipedia article on any vocabulary language."
+            }[getLang];
+        }
+        if (key === "error") {
+            return {
+                "fi": "Wikipedia-sivun lataamisessa tapahtui virhe.",
+                "sv": "Wikipedia-sidan kan inte laddas.",
+                "en": "Could not load wikipedia page."
+            }[getLang];
+        }
+        else if (key === "wikipediaCaption") {
+            var pref = $("span.prefLabel.conceptlabel")[0].innerHTML;
+            return {
+                "fi": pref + " Wikipediassa",
+                "sv": pref + " på Wikipedia",
+                "en": pref + " in Wikipedia"
+            }[getLang];
+        }
+        else if (key === "wikipediaTerms") {
+            return {
+                "fi": 'Teksti on saatavilla <a rel="license" href="//fi.wikipedia.org/wiki/Wikipedia:Creative_Commons_Attribution-Share_Alike_3.0_Unported_-lisenssiehdot">Creative Commons Attribution/Share-Alike</a> -lisenssillä; lisäehtoja voi sisältyä. Katso <a href="//wikimediafoundation.org/wiki/Terms_of_Use/fi">käyttöehdot</a>. Wikipedia® on <a href="http://www.wikimediafoundation.org">Wikimedia Foundationin</a> rekisteröimä tavaramerkki.',
+
+                "sv": 'Wikipedias text är tillgänglig under licensen  <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.sv">Creative Commons Erkännande-dela-lika 3.0 Unported</a>. För bilder, se respektive bildsida (klicka på bilden). Se vidare <a href="//sv.wikipedia.org/wiki/Wikipedia:Upphovsrätt">Wikipedia:Upphovsrätt</a> och <a href="//wikimediafoundation.org/wiki/Terms_of_Use">användarvillkor</a>.',
+
+                "en": 'Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.'
+            }[getLang];
+        }
+        else {
+            return "";
+        }
+    },
+    fixLinks: function (data, lang) {
+        // create a temp jQuery object to help element manipulation
+        var temp = $("<div></div>");
+        temp.html(data);
+        var address = window.location.protocol + "//" +  window.location.host + window.location.pathname + window.location.search;
+        var wikiAddress = "https://" + lang + ".wikipedia.org/wiki/";
+        var attrs = {A: ["href"], LINK: ["href"], IMG: ["src", "srcset", "resource"]};
+        $.each($("a, link, img", temp), function (i, elem) {
+            if (elem.hash && elem.hash.length > 0) {
+                elem.href = address + elem.hash;
+            }
+            $.each(attrs[elem.tagName], function (i2, attr) {
+                WIKI.linkHelper(elem, attr, wikiAddress);
+            });
+        });
+        return temp.html();
+    },
+    linkHelper: function (elem, attr, wikiAddress) {
+        if (elem.attributes[attr]) {
+            var $elem = $(elem);
+            if ($elem.attr(attr).startsWith("./")) {
+                // fix relative links
+                $elem.attr(attr, wikiAddress +  $elem.attr(attr).substring(2));
+            }
+            else if ($elem.attr(attr).startsWith("//")) {
+                // force https
+                $elem.attr(attr, "https:" + $elem.attr(attr));
+            }
+        }
+    },
+    generateQueryString: function (lang, url) {
+        var title = url.substring(url.lastIndexOf('/') + 1, url.length);
+        return 'https://' + lang +'.wikipedia.org/api/rest_v1/page/html/' + title;
+    },
+    generateTOC: function () {}, //TODO?
+    queryWiki: function (url, lang) {
+        var returnValue = {};
+        $.ajax({
+            url : url,
+            headers: {
+                "Accept": "text/html; charset=utf-8; profile='https://www.mediawiki.org/wiki/Specs/HTML/1.6.0'"
+            },
+            beforeSend: function (request) {}, //delaySpinner(loading),
+            complete: function () {}, //clearTimeout(loading),
+            error: function (jqXHR, textStatus, errorThrown) {
+                WIKI.widget.render({succeeded: false,
+                    message: WIKI.getTranslation("error")
+                    //message: (textStatus) ? textStatus : errorThrown // TODO: improve translations
+                });
+            },
+            success : function(data) {
+                // clean data for rendering purposes
+                //take only sections
+                var n = data.indexOf("<section");
+                var m = data.lastIndexOf("</section>") + 10;
+                var cleaned = data.substring(n, m);
+                // fix links in json data
+                cleaned = cleaned.replace(/href":"\.\//g, "https://" + lang + ".wikipedia.org/wiki/");
+
+                // fix links in dom nodes
+                cleaned = WIKI.fixLinks(cleaned, lang);
+                var prefLang = $("span.prefLabelLang")[0];
+                prefLang = (prefLang) ? " " + prefLang.innerHTML : "";
+
+                WIKI.widget.render({
+                    data: cleaned,
+                    message: WIKI.getTranslation("wikipediaCaption"),
+                    terms: WIKI.getTranslation("wikipediaTerms"),
+                    prefLang: prefLang,
+                    succeeded: true
+                });
+            }
+        });
+    },
+    widget: {
+        addAccordionToggleEvents: function() {
+            $('#headingWiki > a > .glyphicon').on('click', function() {
+                WIKI.widget.toggleAccordion();
+            });
+            $('#headingWiki > a.versal').on('click', function() {
+                WIKI.widget.toggleAccordion();
+            });
+        },
+        // Flips the icon displayed on the top right corner of the widget header
+        flipChevron: function() {
+            var $glyph = $('#headingWiki > a > .glyphicon');
+            if ($glyph.hasClass('glyphicon-chevron-down')) {
+                $glyph.removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
+                createCookie('WIKI_WIDGET_OPEN', 1);
+            } else {
+                $glyph.removeClass('glyphicon-chevron-up').addClass('glyphicon-chevron-down');
+                createCookie('WIKI_WIDGET_OPEN', 0);
+            }
+        },
+        render: function (object) {
+            var openCookie = readCookie('WIKI_WIDGET_OPEN');
+            var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
+
+            var context = {
+                opened: Boolean(isOpen),
+                lang: lang,
+                wikipediaCaption: object.message,
+                wikipediaTermsAndConditions: object.terms,
+                succeeded: object.succeeded,
+                prefLang: object.prefLang,
+                data: object.data
+            };
+            $('.concept-info').after(Handlebars.compile($('#wiki-template').html())(context));
+            $("#collapseWiki").mCustomScrollbar({
+                scrollInertia: 0,
+                mouseWheel:{ scrollAmount: 45 },
+                snapAmount: 15,
+                snapOffset: 1
+            });
+            this.addAccordionToggleEvents();
+        },
+        // Handles the collapsing and expanding actions of the widget.
+        toggleAccordion: function() {
+            $('#collapseWiki').collapse('toggle');
+            // switching the glyphicon to indicate a change in the accordion state
+            WIKI.widget.flipChevron();
+        },
     }
 };
 
-$(function() { 
-    
-    window.wikiwidget = function (data) {
-        // Only activating the widget when on a concept page and there is a prefLabel.
-        if (data.page !== 'page' || data.prefLabels === undefined) {
+$(function() {
+
+    window.wikiWidget = function (data) {
+        // Only activate the widget when
+        // 1) on a concept page
+        // 2) and there is a prefLabel
+        // 3) and the json-ld data can be found
+        // 4) and there exists a wikidata object
+        if (data.page !== 'page' || data.prefLabels === undefined || $.isEmptyObject(data["json-ld"])) {
             return;
         }
-        // reading the id from the uri
-        var id = data.uri.substr(data.uri.lastIndexOf('/p') + 2); 
-        // query wikidata for possible wikipedia article title
-        var wikititle = WIKI.widget.queryWiki(data);
-        // TODO: query the wikimedia api for the article content and render it
-    };
+        var wikidata;
+        $.each(data["json-ld"].graph, function () {
+            if (this.uri.startsWith("wd:")) {
+                wikidata = this;
+                return false;
+            }
+        });
+        if (!wikidata) {
+            return;
+        }
+
+        var keyLangUriValue = {};
+        var wikiArticlesList = [];
+
+        wikiArticlesList = $.grep(data["json-ld"].graph, function (obj) {
+            return obj.type === "schema:Article" && obj["schema:isPartOf"].uri.endsWith(".wikipedia.org/");
+        });
+
+        $.each(wikiArticlesList, function () {
+            if (this["schema:inLanguage"] && this.uri) {
+                keyLangUriValue[this["schema:inLanguage"]] = this.uri;
+            }
+        });
+        var restURL = null;
+        var wikiLang;
+        $.each(languageOrder, function () {
+            if (keyLangUriValue[this]) {
+                restURL = WIKI.generateQueryString(this, keyLangUriValue[this]);
+                wikiLang = this;
+                return false;
+            }
+        });
+
+        if (restURL) {
+           WIKI.queryWiki(restURL, wikiLang);
+        }
+        else {
+            WIKI.widget.render({succeeded: false, message: WIKI.getTranslation("404")});
+        }
+    }
 
 });

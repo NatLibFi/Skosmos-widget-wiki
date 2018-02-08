@@ -1,6 +1,6 @@
 {
-    "js": ["widget.js"],
-    "callback": ["wikiwidget"],
-    "css": ["stylesheet.css"],
+    "js": ["polyfills.js", "widget.js"],
+    "callback": ["wikiWidget"],
+    "css": ["wikicss.min.css", "stylesheet.css"],
     "templates": ["template.html"]
 }

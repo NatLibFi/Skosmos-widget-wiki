@@ -1,0 +1,54 @@
+/*
+ *  * The whole widget
+ *   */
+.concept-widget {
+    border-top: 2px solid #394554;
+}
+
+.concept-widget > .panel {
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.concept-widget > .panel > #headingWiki {
+    background-color: #fff;
+}
+
+#collapseWiki > .panel-body > .btn:hover, #collapseWiki > .panel-body > .btn:active, #collapseWiki > .panel-body > .btn:focus {
+    background-color: #fff;
+}
+
+#headingWiki {
+    font-size: 16px;
+    border-bottom: 1px solid #bbb;
+}
+
+#headingWiki > a > .glyphicon, #headingWiki > .glyphicon {
+    color: #83CFC8;
+    float: right;
+    top: 5px;
+    padding-left: 15px;
+}
+
+#headingWiki > a > .greyed-out {
+    color: #BDBDBD;
+}
+
+#collapseWiki {
+    max-height: 400px;
+    /* overflow-y: scroll; */
+}
+
+#collapseWiki sup {
+    top: 0;
+}
+
+#collapseWiki .wikipedia-terms {
+    padding: 15px;
+}
+
+#wiki sup.mw-ref:target, #wiki span.mw-ref:target {
+    background-color: #eaf3ff
+}
+

@@ -2,6 +2,7 @@
 var WIKI = WIKI || {};
 
 WIKI = {
+    address: "", // to be updated
     getTranslation: function (key) {
         var getLang = lang;
         if (lang !== "fi" && lang !== "sv") {
@@ -46,12 +47,11 @@ WIKI = {
         // create a temp jQuery object to help element manipulation
         var temp = $("<div></div>");
         temp.html(data);
-        var address = window.location.protocol + "//" +  window.location.host + window.location.pathname + window.location.search;
         var wikiAddress = "https://" + lang + ".wikipedia.org/wiki/";
         var attrs = {A: ["href"], LINK: ["href"], IMG: ["src", "srcset", "resource"]};
         $.each($("a, link, img", temp), function (i, elem) {
             if (elem.hash && elem.hash.length > 0) {
-                elem.href = address + elem.hash;
+                elem.href = WIKI.address + elem.hash;
             }
             $.each(attrs[elem.tagName], function (i2, attr) {
                 WIKI.linkHelper(elem, attr, wikiAddress);
@@ -77,6 +77,9 @@ WIKI = {
         return 'https://' + lang +'.wikipedia.org/api/rest_v1/page/html/' + title;
     },
     generateTOC: function () {}, //TODO?
+    updateAddress: function () {
+        this.address = window.location.protocol + "//" +  window.location.host + window.location.pathname + window.location.search;
+    },
     queryWiki: function (url, lang) {
         var returnValue = {};
         $.ajax({
@@ -125,6 +128,21 @@ WIKI = {
                 WIKI.widget.toggleAccordion();
             });
         },
+        addScrollingFixEvents: function() {
+            $("#collapseWiki a").on("click", function(e) {
+                if (this.hash && this.hash.length > 0 && this.href.startsWith(WIKI.address)) {
+                    var $hash = $(this.hash);
+                    var scrollbar = $hash.parents(".mCustomScrollbar");
+                    if(target.length){
+                        e.preventDefault();
+                        var scrollmem = $('html,body').scrollTop();
+                        window.location.hash = this.hash;
+                        $('html,body').scrollTop(scrollmem);
+                        target.mCustomScrollbar("scrollTo", $hash);
+                    }
+                }
+            });
+        },
         // Flips the icon displayed on the top right corner of the widget header
         flipChevron: function() {
             var $glyph = $('#headingWiki > a > .glyphicon');
@@ -157,6 +175,7 @@ WIKI = {
                 snapOffset: 1
             });
             this.addAccordionToggleEvents();
+            this.addScrollingFixEvents();
         },
         // Handles the collapsing and expanding actions of the widget.
         toggleAccordion: function() {
@@ -212,7 +231,8 @@ $(function() {
         });
 
         if (restURL) {
-           WIKI.queryWiki(restURL, wikiLang);
+            WIKI.updateAddress();
+            WIKI.queryWiki(restURL, wikiLang);
         }
         else {
             WIKI.widget.render({succeeded: false, message: WIKI.getTranslation("404")});

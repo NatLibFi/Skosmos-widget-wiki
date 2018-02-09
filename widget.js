@@ -133,12 +133,12 @@ WIKI = {
                 if (this.hash && this.hash.length > 0 && this.href.startsWith(WIKI.address)) {
                     var $hash = $(this.hash);
                     var scrollbar = $hash.parents(".mCustomScrollbar");
-                    if(target.length){
+                    if (scrollbar.length){
                         e.preventDefault();
                         var scrollmem = $('html,body').scrollTop();
                         window.location.hash = this.hash;
                         $('html,body').scrollTop(scrollmem);
-                        target.mCustomScrollbar("scrollTo", $hash);
+                        scrollbar.mCustomScrollbar("scrollTo", $hash);
                     }
                 }
             });

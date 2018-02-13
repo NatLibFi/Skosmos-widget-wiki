@@ -87,7 +87,7 @@ WIKI = {
             headers: {
                 "Accept": "text/html; charset=utf-8; profile='https://www.mediawiki.org/wiki/Specs/HTML/1.6.0'"
             },
-            beforeSend: function (request) { request.setRequestHeader("User-Agent", "Finto.fi wikipedia widget - finto-posti@helsinki.fi") },
+            beforeSend: function (request) { request.setRequestHeader("Api-User-Agent", "Finto.fi wikipedia widget - finto-posti@helsinki.fi") },
             error: function (jqXHR, textStatus, errorThrown) {
                 WIKI.widget.render({succeeded: false,
                     message: WIKI.getTranslation("error")

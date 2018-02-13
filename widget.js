@@ -43,11 +43,11 @@ WIKI = {
             return "";
         }
     },
-    fixLinks: function (data, lang) {
+    fixLinks: function (data, wikiLang) {
         // create a temp jQuery object to help element manipulation
         var temp = $("<div></div>");
         temp.html(data);
-        var wikiAddress = "https://" + lang + ".wikipedia.org/wiki/";
+        var wikiAddress = "https://" + wikiLang + ".wikipedia.org/wiki/";
         var attrs = {A: ["href"], LINK: ["href"], IMG: ["src", "srcset", "resource"]};
         $.each($("a, link, img", temp), function (i, elem) {
             if (elem.hash && elem.hash.length > 0) {
@@ -72,15 +72,15 @@ WIKI = {
             }
         }
     },
-    generateQueryString: function (lang, url) {
+    generateQueryString: function (wikiLang, url) {
         var title = url.substring(url.lastIndexOf('/') + 1, url.length);
-        return 'https://' + lang +'.wikipedia.org/api/rest_v1/page/html/' + title;
+        return 'https://' + wikiLang +'.wikipedia.org/api/rest_v1/page/html/' + title;
     },
     generateTOC: function () {}, //TODO?
     updateAddress: function () {
         this.address = window.location.protocol + "//" +  window.location.host + window.location.pathname + window.location.search;
     },
-    queryWiki: function (url, lang) {
+    queryWiki: function (url, wikiLang) {
         var returnValue = {};
         $.ajax({
             url : url,
@@ -101,18 +101,16 @@ WIKI = {
                 var m = data.lastIndexOf("</section>") + 10;
                 var cleaned = data.substring(n, m);
                 // fix links in json data
-                cleaned = cleaned.replace(/href":"\.\//g, "https://" + lang + ".wikipedia.org/wiki/");
+                cleaned = cleaned.replace(/href":"\.\//g, "https://" + wikiLang + ".wikipedia.org/wiki/");
 
                 // fix links in dom nodes
-                cleaned = WIKI.fixLinks(cleaned, lang);
-                var prefLang = $("span.prefLabelLang")[0];
-                prefLang = (prefLang) ? " " + prefLang.innerHTML : "";
+                cleaned = WIKI.fixLinks(cleaned, wikiLang);
 
                 WIKI.widget.render({
                     data: cleaned,
                     message: WIKI.getTranslation("wikipediaCaption"),
                     terms: WIKI.getTranslation("wikipediaTerms"),
-                    prefLang: prefLang,
+                    wikiLang: wikiLang,
                     succeeded: true
                 });
             }
@@ -156,10 +154,12 @@ WIKI = {
         render: function (object) {
             var openCookie = readCookie('WIKI_WIDGET_OPEN');
             var isOpen = openCookie !== null ? parseInt(openCookie, 10) : 1;
-
             var context = {
                 opened: Boolean(isOpen),
-                lang: lang,
+                wikipediaLang: {
+                    diff: lang === object.wikiLang,
+                    value: object.wikiLang
+                },
                 wikipediaCaption: object.message,
                 wikipediaTermsAndConditions: object.terms,
                 succeeded: object.succeeded,
@@ -197,9 +197,9 @@ $(function() {
             return;
         }
         var wikidata;
-        $.each(data["json-ld"].graph, function () {
-            if (this.uri.startsWith("wd:")) {
-                wikidata = this;
+        $.each(data["json-ld"].graph, function (key, value) {
+            if (value.uri.startsWith("wd:")) {
+                wikidata = value;
                 return false;
             }
         });
@@ -214,17 +214,17 @@ $(function() {
             return obj.type === "schema:Article" && obj["schema:isPartOf"].uri.endsWith(".wikipedia.org/");
         });
 
-        $.each(wikiArticlesList, function () {
-            if (this["schema:inLanguage"] && this.uri) {
-                keyLangUriValue[this["schema:inLanguage"]] = this.uri;
+        $.each(wikiArticlesList, function (key, value) {
+            if (value["schema:inLanguage"] && value.uri) {
+                keyLangUriValue[value["schema:inLanguage"]] = value.uri;
             }
         });
         var restURL = null;
         var wikiLang;
-        $.each(languageOrder, function () {
-            if (keyLangUriValue[this]) {
-                restURL = WIKI.generateQueryString(this, keyLangUriValue[this]);
-                wikiLang = this;
+        $.each(languageOrder, function (key, value) {
+            if (keyLangUriValue[value]) {
+                restURL = WIKI.generateQueryString(value, keyLangUriValue[value]);
+                wikiLang = value;
                 return false;
             }
         });

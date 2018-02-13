@@ -4,7 +4,7 @@
             {{#if succeeded}}
             <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
                 {{wikipediaCaption}}
-            </a>{{prefLang}}
+            </a>{{#unless wikipediaLang.diff}}({{wikipediaLang.value}}){{/unless}}
             {{else}}
             {{wikipediaCaption}}
             {{/if}}

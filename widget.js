@@ -157,7 +157,7 @@ WIKI = {
             var context = {
                 opened: Boolean(isOpen),
                 wikipediaLang: {
-                    diff: lang === object.wikiLang,
+                    diff: lang !== object.wikiLang,
                     value: object.wikiLang
                 },
                 wikipediaCaption: object.message,

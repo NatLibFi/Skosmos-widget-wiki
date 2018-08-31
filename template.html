@@ -2,14 +2,14 @@
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingWiki">
             {{#if succeeded}}
-            <a class="versal collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
+                <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}{{#unless succeeded}} greyed-out{{/unless}}" aria-hidden="true"></span></a>
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
                 {{wikipediaCaption}}
             </a>{{#if wikipediaLang.diff}}({{wikipediaLang.value}}){{/if}}
             {{else}}
             {{wikipediaCaption}}
             {{/if}}
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
-                <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}{{#unless succeeded}} greyed-out{{/unless}}" aria-hidden="true"></span></a>
         </div>
         <div id="collapseWiki" class="panel-collapse collapse{{#if opened}} in{{/if}}" role="tabpanel" aria-labelledby="headingWiki">
             {{#if succeeded}}
@@ -18,7 +18,10 @@
                     {{{data}}}
                 </div>
             </div>
-            <div class="wikipedia-terms">{{{wikipediaTermsAndConditions}}}</div>
+            <div class="wikipedia-disclaimer">
+                <div class="wikipedia-terms">{{{wikipediaTermsAndConditions}}}</div>
+                <div class="wikipedia-credit">{{wikipediaCredit}}<a href="{{wikipediaURL}}">{{wikipediaURL}}</a></div>
+            </div>
             {{/if}}
         </div>
     </div>

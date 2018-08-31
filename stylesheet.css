@@ -26,9 +26,8 @@
 
 #headingWiki > a > .glyphicon, #headingWiki > .glyphicon {
     color: #83CFC8;
-    float: right;
-    top: 5px;
-    padding-left: 15px;
+    top: 3px;
+    padding-right: 15px;
 }
 
 #headingWiki > a > .greyed-out {
@@ -44,8 +43,13 @@
     top: 0;
 }
 
-#collapseWiki .wikipedia-terms {
+#collapseWiki .wikipedia-disclaimer {
     padding: 15px;
+}
+
+#collapseWiki .wikipedia-credit {
+    margin-top: 10px;
+    font-size: 16px;
 }
 
 #wiki sup.mw-ref:target, #wiki span.mw-ref:target {

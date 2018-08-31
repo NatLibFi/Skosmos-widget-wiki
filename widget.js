@@ -39,6 +39,13 @@ WIKI = {
                 "en": 'Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.'
             }[getLang];
         }
+        else if (key === "wikipediaCredit") {
+            return {
+               'fi': 'Katso sivu Wikipediassa: ',
+               'sv': 'Se sidan på Wikipedia: ',
+               'en': 'See the page in Wikipedia: '
+            }[getLang];
+        }
         else {
             return "";
         }
@@ -80,6 +87,9 @@ WIKI = {
     updateAddress: function () {
         this.address = window.location.protocol + "//" +  window.location.host + window.location.pathname + window.location.search;
     },
+    updateWikipediaURL: function (url) {
+        this.wikipediaURL = url;
+    },
     queryWiki: function (url, wikiLang) {
         var returnValue = {};
         $.ajax({
@@ -110,7 +120,9 @@ WIKI = {
                     data: cleaned,
                     message: WIKI.getTranslation("wikipediaCaption"),
                     terms: WIKI.getTranslation("wikipediaTerms"),
+                    credit: WIKI.getTranslation("wikipediaCredit"),
                     wikiLang: wikiLang,
+                    wikipediaURL: WIKI.wikipediaURL,
                     succeeded: true
                 });
             }
@@ -157,11 +169,13 @@ WIKI = {
             var context = {
                 opened: Boolean(isOpen),
                 wikipediaLang: {
-                    diff: lang !== object.wikiLang,
+                    diff: content_lang !== object.wikiLang,
                     value: object.wikiLang
                 },
                 wikipediaCaption: object.message,
                 wikipediaTermsAndConditions: object.terms,
+                wikipediaCredit: object.credit,
+                wikipediaURL: object.wikipediaURL,
                 succeeded: object.succeeded,
                 prefLang: object.prefLang,
                 data: object.data
@@ -182,7 +196,8 @@ WIKI = {
             // switching the glyphicon to indicate a change in the accordion state
             WIKI.widget.flipChevron();
         },
-    }
+    },
+    wikipediaURL: "" // to be updated
 };
 
 $(function() {
@@ -220,6 +235,7 @@ $(function() {
             }
         });
         var restURL = null;
+        var wikiURL = null;
         var wikiLang;
         $.each(languageOrder, function (key, value) {
             if (keyLangUriValue[value]) {
@@ -230,6 +246,7 @@ $(function() {
         });
 
         if (restURL) {
+            WIKI.updateWikipediaURL(keyLangUriValue[wikiLang]);
             WIKI.updateAddress();
             WIKI.queryWiki(restURL, wikiLang);
         }

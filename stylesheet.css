@@ -5,7 +5,7 @@
     border-top: 2px solid #394554;
 }
 
-.concept-widget > .panel {
+.concept-widget > .panel, .concept-widget #wiki {
     border-radius: 0;
     border: 0;
     box-shadow: none;
@@ -39,20 +39,59 @@
     /* overflow-y: scroll; */
 }
 
-#collapseWiki sup {
+#wiki p,
+#wiki section > *:not(h2):not(h3),
+#wiki ul > *,
+#wiki ol > *,
+#wiki td > a
+{
+    font-size: 14px; /* default to 14px */
+}
+
+#wiki sup {
     top: 0;
 }
 
-#collapseWiki .wikipedia-disclaimer {
-    padding: 15px;
+#wiki table.infobox td,
+#wiki table.infobox th {
+    padding: 2px 3px 2px 3px;
+    font-size: 12px;
 }
 
-#collapseWiki .wikipedia-credit {
-    margin-top: 10px;
-    font-size: 16px;
+#wiki table.infobox td > a {
+    font-size: 12px;
+}
+
+/* // smaller references
+#wiki .mw-ref {
+    font-size: 75%;
+}
+*/
+
+/* // default all font sizes
+#wiki .infobox * {
+    font-size:unset;
+}
+*/
+
+#wiki a.new {
+    color: #ba0000 !important; // override default with important (see issue #4)
 }
 
 #wiki sup.mw-ref:target, #wiki span.mw-ref:target {
     background-color: #eaf3ff
+}
+
+#wiki div.NavFrame div.NavHead {
+    position: inherit; // fix flags in div.NavFrame
+}
+
+#collapseWiki .wikipedia-disclaimer {
+    padding: 15px;
+    font-size: 14px;
+}
+
+#collapseWiki .wikipedia-credit {
+    margin-top: 10px;
 }
 

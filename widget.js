@@ -32,11 +32,11 @@ WIKI = {
         }
         else if (key === "wikipediaTerms") {
             return {
-                "fi": 'Teksti on saatavilla <a rel="license" href="//fi.wikipedia.org/wiki/Wikipedia:Creative_Commons_Attribution-Share_Alike_3.0_Unported_-lisenssiehdot">Creative Commons Attribution/Share-Alike</a> -lisenssillä; lisäehtoja voi sisältyä. Katso <a href="//wikimediafoundation.org/wiki/Terms_of_Use/fi">käyttöehdot</a>. Wikipedia® on <a href="http://www.wikimediafoundation.org">Wikimedia Foundationin</a> rekisteröimä tavaramerkki.',
+                "fi": 'Teksti on saatavilla <a rel="license" href="//fi.wikipedia.org/wiki/Wikipedia:Creative_Commons_Attribution-Share_Alike_3.0_Unported_-lisenssiehdot" target="_blank">Creative Commons Attribution/Share-Alike</a> -lisenssillä; lisäehtoja voi sisältyä. Katso <a href="//wikimediafoundation.org/wiki/Terms_of_Use/fi" target="_blank">käyttöehdot</a>. Wikipedia® on <a href="http://www.wikimediafoundation.org" target="_blank">Wikimedia Foundationin</a> rekisteröimä tavaramerkki.',
 
-                "sv": 'Wikipedias text är tillgänglig under licensen  <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.sv">Creative Commons Erkännande-dela-lika 3.0 Unported</a>. För bilder, se respektive bildsida (klicka på bilden). Se vidare <a href="//sv.wikipedia.org/wiki/Wikipedia:Upphovsrätt">Wikipedia:Upphovsrätt</a> och <a href="//wikimediafoundation.org/wiki/Terms_of_Use">användarvillkor</a>.',
+                "sv": 'Wikipedias text är tillgänglig under licensen  <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.sv" target="_blank">Creative Commons Erkännande-dela-lika 3.0 Unported</a>. För bilder, se respektive bildsida (klicka på bilden). Se vidare <a href="//sv.wikipedia.org/wiki/Wikipedia:Upphovsrätt" target="_blank">Wikipedia:Upphovsrätt</a> och <a href="//wikimediafoundation.org/wiki/Terms_of_Use" target="_blank">användarvillkor</a>.',
 
-                "en": 'Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" style="display:none;"></a>; additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.'
+                "en": 'Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="display:none;"></a>; additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use" target="_blank">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/" target="_blank">Wikimedia Foundation, Inc.</a>, a non-profit organization.'
             }[getLang];
         }
         else if (key === "wikipediaCredit") {
@@ -60,10 +60,20 @@ WIKI = {
             if (elem.hash && elem.hash.length > 0) {
                 elem.href = WIKI.address + elem.hash;
             }
+            else {
+                elem.target = "_blank";
+            }
             $.each(attrs[elem.tagName], function (i2, attr) {
                 WIKI.linkHelper(elem, attr, wikiAddress);
             });
         });
+        // also fix .infobox td border-tops (temporary fix for issue #4)
+        $.each($(".infobox td", temp), function (i, elem) {
+            if (elem.style["border-top"]) {
+                elem.style.setProperty("border-top", elem.style["border-top"], "important");
+            }
+        });
+
         return temp.html();
     },
     linkHelper: function (elem, attr, wikiAddress) {

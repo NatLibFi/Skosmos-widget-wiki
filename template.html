@@ -4,7 +4,7 @@
             {{#if succeeded}}
             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
                 <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}{{#unless succeeded}} greyed-out{{/unless}}" aria-hidden="true"></span></a>
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
+            <a class="collapsed versal" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
                 {{wikipediaCaption}}
             </a>{{#if wikipediaLang.diff}}({{wikipediaLang.value}}){{/if}}
             {{else}}
@@ -18,9 +18,9 @@
                     {{{data}}}
                 </div>
             </div>
-            <div class="wikipedia-disclaimer">
+            <div class="wikipedia-disclaimer versal">
                 <div class="wikipedia-terms">{{{wikipediaTermsAndConditions}}}</div>
-                <div class="wikipedia-credit">{{wikipediaCredit}}<a href="{{wikipediaURL}}">{{wikipediaURL}}</a></div>
+                <div class="wikipedia-credit">{{wikipediaCredit}}<a href="{{wikipediaURL}}" target="_blank">{{wikipediaURL}}</a></div>
             </div>
             {{/if}}
         </div>

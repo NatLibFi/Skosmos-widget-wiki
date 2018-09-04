@@ -75,15 +75,27 @@
 */
 
 #wiki a.new {
-    color: #ba0000 !important; // override default with important (see issue #4)
+    /*override default with important (see issue #4) */
+    color: #ba0000 !important;
 }
 
 #wiki sup.mw-ref:target, #wiki span.mw-ref:target {
-    background-color: #eaf3ff
+    background-color: #eaf3ff;
 }
 
 #wiki div.NavFrame div.NavHead {
-    position: inherit; // fix flags in div.NavFrame
+    position: inherit; /* fix flags in div.NavFrame */
+}
+
+#wiki table {
+    border-spacing: 1px;
+    border-collapse: separate;
+}
+
+#wiki div.NavFrame div.NavContent td:nth-child(2),
+#wiki div.NavFrame div.NavContent th:nth-child(2)
+{
+    padding: 3px 2px 1px 7px;
 }
 
 #collapseWiki .wikipedia-disclaimer {

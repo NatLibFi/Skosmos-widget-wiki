@@ -57,7 +57,7 @@ WIKI = {
         var wikiAddress = "https://" + wikiLang + ".wikipedia.org/wiki/";
         var attrs = {A: ["href"], LINK: ["href"], IMG: ["src", "srcset", "resource"]};
         $.each($("a, link, img", temp), function (i, elem) {
-            if (elem.hash && elem.hash.length > 0) {
+            if (elem.hash && elem.hash.startsWith("#cite_")) {
                 elem.href = WIKI.address + elem.hash;
             }
             else {
@@ -72,6 +72,20 @@ WIKI = {
             if (elem.style["border-top"]) {
                 elem.style.setProperty("border-top", elem.style["border-top"], "important");
             }
+        });
+
+        // also fix tables to support x-overflow
+        $.each($("table", temp), function (i, elem) {
+            var temp2 = $("<div style='overflow-x:auto;'></div>");
+            if (this.style.float === "right" || $(this).hasClass("infobox")) {
+                temp2.css("float", "right");
+            }
+            // use if instead of else if in case it is .infobox but has inline float:left
+            if (this.style.float === "left") {
+                temp2.css("float", "left");
+            }
+            temp2.insertAfter($(this));
+            $(this).detach().appendTo(temp2);
         });
 
         return temp.html();

@@ -3,6 +3,9 @@
 # adds #wiki (hardcoded) in front of every rule path
 # also, makes relative URLs absolute by prefixing them with
 # (hardcoded) https://en.wikipedia.org/
+#
+# Afterwards, remember to add the LICENSE information!
+
 def main():
     with open("output.css", "w+") as output:
         with open("wikicss.css", "r") as f:

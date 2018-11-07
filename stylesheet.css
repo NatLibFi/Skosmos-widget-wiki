@@ -111,6 +111,12 @@
     padding-right: 13px;
 }
 
+#wiki a[href$=".pdf"].external, #wiki a[href*=".pdf?"].external, #wiki a[href*=".pdf#"].external, #wiki a[href$=".PDF"].external, #wiki a[href*=".PDF?"].external, #wiki a[href*=".PDF#"].external {
+    background: url(//upload.wikimedia.org/wikipedia/commons/2/23/Icons-mini-file_acrobat.gif) no-repeat right;
+    background-size: 14px;
+    padding-right: 18px;
+}
+
 #wiki .navbar {
     min-height: 15px;
     margin-bottom: 0px;

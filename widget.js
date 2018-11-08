@@ -67,13 +67,6 @@ WIKI = {
                 WIKI.linkHelper(elem, attr, wikiAddress);
             });
         });
-        // also fix .infobox td border-tops (temporary fix for issue #4)
-        $.each($(".infobox td", temp), function (i, elem) {
-            if (elem.style["border-top"]) {
-                elem.style.setProperty("border-top", elem.style["border-top"], "important");
-            }
-        });
-
         // also fix tables to support x-overflow
         $.each($("table", temp), function (i, elem) {
             var temp2 = $("<div style='overflow-x:auto;'></div>");

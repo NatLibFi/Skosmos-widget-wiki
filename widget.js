@@ -67,18 +67,11 @@ WIKI = {
                 WIKI.linkHelper(elem, attr, wikiAddress);
             });
         });
-        // also fix tables to support x-overflow
-        $.each($("table", temp), function (i, elem) {
-            var temp2 = $("<div style='overflow-x:auto;'></div>");
-            if (this.style.float === "right" || $(this).hasClass("infobox")) {
-                temp2.css("float", "right");
-            }
-            // use if instead of else if in case it is .infobox but has inline float:left
-            if (this.style.float === "left") {
-                temp2.css("float", "left");
-            }
-            temp2.insertAfter($(this));
-            $(this).detach().appendTo(temp2);
+
+        $.each($(".thumbinner", temp), function (i, elem) {
+            // add 8 pixels to make the child elements of these to behave normally w.r.t. wikipedia-defined css styles (e.g., float, clear)
+            this.style['max-width'] = parseInt(this.style['max-width']) + 8 + "px";
+            this.style.width = parseInt(this.style.width) + 8 + "px";
         });
 
         return temp.html();
@@ -141,6 +134,22 @@ WIKI = {
                     wikiLang: wikiLang,
                     wikipediaURL: WIKI.wikipediaURL,
                     succeeded: true
+                });
+                // fix overwide tables to support x-overflow
+                var wikiWidgetWidth = $("#wiki").width();
+                $.each($("#wiki table"), function (i, elem) {
+                    if ($(this).width() > wikiWidgetWidth) {
+                        var temp2 = $("<div style='overflow-x:auto;'></div>");
+                        temp2.insertAfter($(this));
+                        $(this).detach().appendTo(temp2);
+                    }
+                });
+                // fix overwide thumbinner classes
+                $.each($("#wiki .thumbinner"), function (i, elem) {
+                    if ($(this).width() > wikiWidgetWidth) {
+                       this.style.width = "";
+                       this.parentNode.style["overflow-x"] = "auto";
+                    }
                 });
             }
         });

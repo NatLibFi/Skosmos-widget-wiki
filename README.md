@@ -7,4 +7,5 @@ This plugin fulfills the requirements for [Skosmos](https://github.com/NatLibFi/
 
 ### Noteworthy
 - Pollutes the global namespace with `WIKI`.
-- If one wants to update the wiki css, run `python.py` (see the file for details) on unminified file to prepend rules with `#wiki` in order to avoid polluting the global css definitions.
+- If one wants to update the wiki css, run `prepender.py --input $INPUT --output $OUTPUT --prepend-with "#wiki"` (see the file for details) on an unminified file to prepend the input file CSS selectors with `#wiki` in order to avoid polluting the global css definitions.
+- Please also remember to add LICENSE information for each CSS file (also supported in `prepender.py`).

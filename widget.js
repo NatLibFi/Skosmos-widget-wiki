@@ -87,6 +87,9 @@ WIKI = {
                 // force https
                 $elem.attr(attr, "https:" + $elem.attr(attr));
             }
+            else if ($elem.attr(attr).startsWith("/wiki/")) {
+                $elem.attr(attr, wikiAddress + $elem.attr(attr).substring(6));
+            }
         }
     },
     generateQueryString: function (wikiLang, url) {

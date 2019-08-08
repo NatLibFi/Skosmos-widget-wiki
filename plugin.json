@@ -1,6 +1,6 @@
 {
     "js": ["polyfills.js", "widget.js"],
     "callback": ["wikiWidget"],
-    "css": ["wikicss.min.css", "stylesheet.css"],
+    "css": ["wikicss.min.css", "infobox_v3.css", "kartographer.css", "stylesheet.css"],
     "templates": ["template.html"]
 }

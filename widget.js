@@ -90,6 +90,9 @@ WIKI = {
             else if ($elem.attr(attr).startsWith("/wiki/")) {
                 $elem.attr(attr, wikiAddress + $elem.attr(attr).substring(6));
             }
+            else if ($elem.attr(attr).startsWith("/w/")) {
+                $elem.attr(attr, wikiAddress.slice(0, -6) + $elem.attr(attr));
+            }
         }
     },
     generateQueryString: function (wikiLang, url) {

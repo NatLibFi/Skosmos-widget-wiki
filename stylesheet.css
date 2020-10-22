@@ -24,10 +24,13 @@
     border-bottom: 1px solid #bbb;
 }
 
-#headingWiki > a > .glyphicon, #headingWiki > .glyphicon {
+#headingWiki > a > .glyphicon {
     color: #83CFC8;
     top: 3px;
-    padding-right: 15px;
+}
+
+#headingWiki > a + a {
+    margin-left: 15px;
 }
 
 #headingWiki > a > .greyed-out {

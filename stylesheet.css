@@ -24,10 +24,13 @@
     border-bottom: 1px solid #bbb;
 }
 
-#headingWiki > a > .glyphicon, #headingWiki > .glyphicon {
+#headingWiki > a > .glyphicon {
     color: #83CFC8;
     top: 3px;
-    padding-right: 15px;
+}
+
+#headingWiki > a + a {
+    margin-left: 15px;
 }
 
 #headingWiki > a > .greyed-out {
@@ -46,6 +49,10 @@
 #wiki td > a
 {
     font-size: 14px; /* default to 14px */
+}
+
+#wiki p {
+   font-size: inherit;
 }
 
 #wiki sup {
@@ -147,6 +154,13 @@
 #wiki div.NavFrame div.NavContent th:nth-child(2)
 {
     padding: 3px 2px 1px 7px;
+}
+
+#wiki figure[typeof*="mw:Image"].mw-halign-left:not([id]),
+#wiki figure[typeof*="mw:Video"].mw-halign-left:not([id]),
+#wiki figure[typeof*="mw:Audio"].mw-halign-left:not([id])
+{
+    margin: 0 0.5em 0.5em 0;
 }
 
 #collapseWiki .wikipedia-disclaimer {

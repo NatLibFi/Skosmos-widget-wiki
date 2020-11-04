@@ -125,6 +125,8 @@ WIKI = {
                 var cleaned = data.substring(n, m);
                 // fix links in json data
                 cleaned = cleaned.replace(/href":"\.\//g, "https://" + wikiLang + ".wikipedia.org/wiki/");
+                // fix too eager downloading of image sources
+                cleaned = cleaned.replace(/src="\/(?!\/)/g, 'src="https://' + wikiLang + ".wikipedia.org/");
 
                 // fix links in dom nodes
                 cleaned = WIKI.fixLinks(cleaned, wikiLang);

@@ -140,11 +140,15 @@ WIKI = {
                     wikipediaURL: WIKI.wikipediaURL,
                     succeeded: true
                 });
-                // fix overwide tables to support x-overflow
+                // fix overwide tables and figures to support x-overflow
                 var wikiWidgetWidth = $("#wiki").width();
-                $.each($("#wiki table"), function (i, elem) {
+                $.each($("#wiki table, #wiki figure"), function (i, elem) {
                     if ($(this).width() > wikiWidgetWidth) {
                         var temp2 = $("<div style='overflow-x:auto;'></div>");
+                        if (this.tagName === "FIGURE") {
+                            temp2.css("margin-bottom", $(this).css("margin-bottom"));
+                            this.style["margin-bottom"] = 0;
+                        }
                         temp2.insertAfter($(this));
                         $(this).detach().appendTo(temp2);
                     }

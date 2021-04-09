@@ -42,7 +42,6 @@
     /* overflow-y: scroll; */
 }
 
-#wiki p,
 #wiki section > *:not(h2):not(h3),
 #wiki ul > *,
 #wiki ol > *,
@@ -51,7 +50,7 @@
     font-size: 14px; /* default to 14px */
 }
 
-#wiki p {
+#wiki p, #wiki td[style*="font-size"] a {
    font-size: inherit;
 }
 
@@ -62,6 +61,20 @@
 
 #wiki sub {
     vertical-align: sub;
+}
+
+#wiki .infobox {
+    width: 22em;
+}
+
+#wiki .infobox .infobox-above, #wiki .infobox caption, #wiki .infobox-title {
+    font-size: 125%;
+    font-weight: bold;
+    text-align: center;
+}
+
+#wiki .infobox .infobox-header, #wiki .infobox .infobox-subheader, #wiki.infobox .infobox-image, #wiki .infobox .infobox-full-data, #wiki .infobox .infobox-below {
+    text-align: center;
 }
 
 #wiki table.infobox td,
@@ -161,6 +174,45 @@
 #wiki figure[typeof*="mw:Audio"].mw-halign-left:not([id])
 {
     margin: 0 0.5em 0.5em 0;
+}
+
+#wiki caption, #wiki th {
+    color: inherit;
+    text-align: inherit;
+}
+
+#wiki caption {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#wiki .thumbcaption {
+    border: 0;
+    line-height: 1.4em;
+    padding: 3px;
+    font-size: 94%;
+    text-align: left;
+}
+
+#wiki .tmulti .text-align-center {
+    text-align: center;
+}
+
+#wiki .tmulti .thumbcaption {
+    background-color: transparent;
+}
+
+#wiki table.wikitable, #wiki table.prettytable {
+    margin: 1em 1em 1em 0;
+    background: #f9f9f9;
+    border: 1px #aaaaaa solid;
+    border-collapse: collapse;
+    vertical-align: top;
+}
+
+#wiki table.wikitable th, #wiki table.wikitable td, #wiki table.prettytable th, #wiki table.prettytable td {
+    border: 1px #aaa solid;
+    padding: 0.2em;
 }
 
 #collapseWiki .wikipedia-disclaimer {

@@ -2,11 +2,10 @@
     <div class="panel panel-default">
         <div class="panel-heading" role="tab" id="headingWiki">
             {{#if succeeded}}
-            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
-                <span class="glyphicon glyphicon-chevron-{{#if opened}}up{{else}}down{{/if}}{{#unless succeeded}} greyed-out{{/unless}}" aria-hidden="true"></span></a>
-            <a class="collapsed versal" role="button" data-toggle="collapse" data-parent="#wikiAccordion" href="#collapseWiki" aria-expanded="false" aria-controls="collapseWiki">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWiki" aria-expanded="true" aria-controls="collapseWiki">
                 {{wikipediaCaption}}
-            </a>{{#if wikipediaLang.diff}}({{wikipediaLang.value}}){{/if}}
+            </button>
+            {{#if wikipediaLang.diff}}({{wikipediaLang.value}}){{/if}}
             {{else}}
             {{wikipediaCaption}}
             {{/if}}

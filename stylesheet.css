@@ -3,6 +3,7 @@
  *   */
 .concept-widget {
     border-top: 2px solid #394554;
+    background-color: #fff;
 }
 
 .concept-widget > .panel, .concept-widget #wiki {
@@ -14,6 +15,8 @@
 .concept-widget > .panel > #headingWiki {
     background-color: #fff;
 }
+
+.
 
 #collapseWiki > .panel-body > .btn:hover, #collapseWiki > .panel-body > .btn:active, #collapseWiki > .panel-body > .btn:focus {
     background-color: #fff;

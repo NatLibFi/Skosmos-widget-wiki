@@ -64,11 +64,6 @@
 
 #wiki table > tbody > tr > td {
   word-wrap:break-word;
-  word-break:break-word;
-}
-
-#wiki table > tbody > tr {
-  word-wrap:break-word;
 }
 
 #wiki section {

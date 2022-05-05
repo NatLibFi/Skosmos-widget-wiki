@@ -51,6 +51,29 @@
     font-size: 14px; /* default to 14px */
 }
 
+#headingWiki .accordion-button {
+    color: var(--medium-color);
+    background-color: var(--white);
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    font-size: 14px;
+}
+
+#wiki table {
+    table-layout:fixed;
+}
+
+#wiki table > tbody > tr > td {
+  word-wrap:break-word;
+  word-break:break-all;
+}
+
+#wiki section {
+    padding: 10px;
+}
+
 #wiki p, #wiki td[style*="font-size"] a {
    font-size: inherit;
 }

@@ -140,18 +140,16 @@ WIKI = {
                     wikipediaURL: WIKI.wikipediaURL,
                     succeeded: true
                 });
-                // fix overwide tables and figures to support x-overflow
-                var wikiWidgetWidth = $("#wiki").width();
-                $.each($("#wiki table, #wiki figure"), function (i, elem) {
-                    if ($(this).width() > wikiWidgetWidth) {
-                        var temp2 = $("<div style='overflow-x:auto;'></div>");
+                // fix overwide tables
+                $.each($("#wiki table"), function (i, elem) {
+                    $(this).addClass("table");
+                        var temp2 = $("<div class='table-responsive-sm'></div>");
                         if (this.tagName === "FIGURE") {
                             temp2.css("margin-bottom", $(this).css("margin-bottom"));
                             this.style["margin-bottom"] = 0;
                         }
                         temp2.insertAfter($(this));
                         $(this).detach().appendTo(temp2);
-                    }
                 });
                 // fix overwide thumbinner classes
                 $.each($("#wiki .thumbinner"), function (i, elem) {

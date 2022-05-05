@@ -4,6 +4,7 @@
 .concept-widget {
     border-top: 2px solid #394554;
     background-color: #fff;
+     margin-bottom: 20px;
 }
 
 .concept-widget > .panel, .concept-widget #wiki {
@@ -247,4 +248,3 @@
 #collapseWiki .wikipedia-credit {
     margin-top: 10px;
 }
-

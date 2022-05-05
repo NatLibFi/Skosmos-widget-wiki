@@ -62,13 +62,13 @@
     font-size: 14px;
 }
 
-#wiki table {
-    table-layout:fixed;
-}
-
 #wiki table > tbody > tr > td {
   word-wrap:break-word;
   word-break:break-word;
+}
+
+#wiki table > tbody > tr {
+  word-wrap:break-word;
 }
 
 #wiki section {
@@ -238,6 +238,10 @@
 #wiki table.wikitable th, #wiki table.wikitable td, #wiki table.prettytable th, #wiki table.prettytable td {
     border: 1px #aaa solid;
     padding: 0.2em;
+}
+
+#wiki #coordinates {
+    position: unset;
 }
 
 #collapseWiki .wikipedia-disclaimer {

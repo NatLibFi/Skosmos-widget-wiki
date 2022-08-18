@@ -3,6 +3,8 @@
  *   */
 .concept-widget {
     border-top: 2px solid #394554;
+    background-color: #fff;
+     margin-bottom: 20px;
 }
 
 .concept-widget > .panel, .concept-widget #wiki {
@@ -48,6 +50,24 @@
 #wiki td > a
 {
     font-size: 14px; /* default to 14px */
+}
+
+#headingWiki .accordion-button {
+    color: var(--medium-color);
+    background-color: var(--white);
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    font-size: 1rem;
+}
+
+#wiki table > tbody > tr > td {
+  word-wrap:break-word;
+}
+
+#wiki section {
+    padding: 10px;
 }
 
 #wiki p, #wiki td[style*="font-size"] a {
@@ -215,6 +235,10 @@
     padding: 0.2em;
 }
 
+#wiki #coordinates {
+    position: unset;
+}
+
 #collapseWiki .wikipedia-disclaimer {
     padding: 15px;
     font-size: 14px;
@@ -223,4 +247,3 @@
 #collapseWiki .wikipedia-credit {
     margin-top: 10px;
 }
-

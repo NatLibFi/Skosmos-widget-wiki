@@ -41,7 +41,7 @@
 
 #collapseWiki {
     max-height: 400px;
-    /* overflow-y: scroll; */
+    overflow: auto;
 }
 
 #wiki section > *:not(h2):not(h3),

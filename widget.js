@@ -170,21 +170,6 @@ WIKI = {
                 WIKI.widget.toggleAccordion();
             });
         },
-        addScrollingFixEvents: function() {
-            $("#collapseWiki a").on("click", function(e) {
-                if (this.hash && this.hash.length > 0 && this.href.startsWith(WIKI.address)) {
-                    var $hash = $(this.hash);
-                    var scrollbar = $hash.parents(".mCustomScrollbar");
-                    if (scrollbar.length){
-                        e.preventDefault();
-                        var scrollmem = $('html,body').scrollTop();
-                        window.location.hash = this.hash;
-                        $('html,body').scrollTop(scrollmem);
-                        scrollbar.mCustomScrollbar("scrollTo", $hash);
-                    }
-                }
-            });
-        },
         // Flips the icon displayed on the top right corner of the widget header
         flipChevron: function() {
             var $glyph = $('#headingWiki > a > .glyphicon');
@@ -214,14 +199,7 @@ WIKI = {
                 data: object.data
             };
             $('.concept-info').after(Handlebars.compile($('#wiki-template').html())(context));
-            $("#collapseWiki").mCustomScrollbar({
-                scrollInertia: 0,
-                mouseWheel:{ scrollAmount: 45 },
-                snapAmount: 15,
-                snapOffset: 1
-            });
             this.addAccordionToggleEvents();
-            this.addScrollingFixEvents();
         },
         // Handles the collapsing and expanding actions of the widget.
         toggleAccordion: function() {

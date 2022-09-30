@@ -41,7 +41,7 @@
 
 #collapseWiki {
     max-height: 400px;
-    /* overflow-y: scroll; */
+    overflow: auto;
 }
 
 #wiki section > *:not(h2):not(h3),
@@ -106,7 +106,7 @@
 #wiki table.infobox td > a,
 #wiki table.infobox td > p
 {
-    font-size: 12px; */
+    font-size: 12px;
 }
 
 /* // smaller references

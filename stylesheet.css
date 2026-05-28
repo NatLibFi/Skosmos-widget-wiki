@@ -53,13 +53,19 @@
 }
 
 #headingWiki .accordion-button {
-    color: var(--medium-color);
-    background-color: var(--white);
-    padding-top: 0.5rem;
-    padding-right: 1rem;
-    padding-bottom: 0.5rem;
-    padding-left: 1rem;
-    font-size: 1rem;
+  background-color: var(--white-color);
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: var(--dark-color);
+}
+
+#wiki {
+  font-size: 1.2rem;
+  overflow-y: auto;
 }
 
 #wiki table > tbody > tr > td {
@@ -67,11 +73,11 @@
 }
 
 #wiki section {
-    padding: 10px;
+  padding: 10px;
 }
 
 #wiki p, #wiki td[style*="font-size"] a {
-   font-size: inherit;
+  font-size: 1.2rem;
 }
 
 #wiki sup {

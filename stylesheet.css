@@ -1,38 +1,38 @@
 /*
  * Stylesheet for the widget. Designed for finto.fi. Complements wiki CSS. *
  *   */
-.concept-widget {
-    border-top: 2px solid #394554;
-    background-color: #fff;
-     margin-bottom: 20px;
+#wiki-widget {
+  background-color: var(--white-color);
+  margin-bottom: 20px;
 }
 
-.concept-widget > .panel, .concept-widget #wiki {
-    border-radius: 0;
-    border: 0;
-    box-shadow: none;
+#wiki-widget > .panel, .concept-widget #wiki {
+  background-color: var(--white-color);
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
 }
 
-.concept-widget > .panel > #headingWiki {
-    background-color: #fff;
+#wiki-widget > .panel > #headingWiki {
+  background-color: var(--white-color);
 }
 
 #collapseWiki > .panel-body > .btn:hover, #collapseWiki > .panel-body > .btn:active, #collapseWiki > .panel-body > .btn:focus {
-    background-color: #fff;
+  background-color: var(--white-color);
 }
 
 #headingWiki {
-    font-size: 16px;
-    border-bottom: 1px solid #bbb;
+  font-size: 16px;
+  border-bottom: 1px solid #bbb;
 }
 
 #headingWiki > a > .glyphicon {
-    color: #83CFC8;
-    top: 3px;
+  color: #83CFC8;
+  top: 3px;
 }
 
 #headingWiki > a + a {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
 #headingWiki > a > .greyed-out {
@@ -40,8 +40,8 @@
 }
 
 #collapseWiki {
-    max-height: 400px;
-    overflow: auto;
+  max-height: 400px;
+  overflow: auto;
 }
 
 #wiki section > *:not(h2):not(h3),
@@ -49,7 +49,7 @@
 #wiki ol > *,
 #wiki td > a
 {
-    font-size: 14px; /* default to 14px */
+  font-size: 1.2rem;
 }
 
 #headingWiki .accordion-button {
@@ -61,11 +61,13 @@
   font-weight: bold;
   font-size: 1.2rem;
   color: var(--dark-color);
+  margin-top: .2rem;
 }
 
 #wiki {
   font-size: 1.2rem;
   overflow-y: auto;
+  background-color: var(--white-color);
 }
 
 #wiki table > tbody > tr > td {
@@ -81,38 +83,38 @@
 }
 
 #wiki sup {
-    vertical-align: super;
-    top: 0;
+  vertical-align: super;
+  top: 0;
 }
 
 #wiki sub {
-    vertical-align: sub;
+  vertical-align: sub;
 }
 
 #wiki .infobox {
-    width: 22em;
+  width: 22em;
 }
 
 #wiki .infobox .infobox-above, #wiki .infobox caption, #wiki .infobox-title {
-    font-size: 125%;
-    font-weight: bold;
-    text-align: center;
+  font-size: 125%;
+  font-weight: bold;
+  text-align: center;
 }
 
 #wiki .infobox .infobox-header, #wiki .infobox .infobox-subheader, #wiki.infobox .infobox-image, #wiki .infobox .infobox-full-data, #wiki .infobox .infobox-below {
-    text-align: center;
+  text-align: center;
 }
 
 #wiki table.infobox td,
 #wiki table.infobox th {
-    padding: 2px 3px 2px 3px;
+  padding: 2px 3px 2px 3px;
 }
 
 #wiki table.infobox td li,
 #wiki table.infobox td > a,
 #wiki table.infobox td > p
 {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 /* // smaller references
@@ -128,128 +130,136 @@
 */
 
 #wiki a.new {
-    /*override default with important (see issue #4) */
-    color: #ba0000 !important;
+  /*override default with important (see issue #4) */
+  color: #ba0000 !important;
 }
 
 #wiki sup.mw-ref:target, #wiki span.mw-ref:target {
-    background-color: #eaf3ff;
+  background-color: #eaf3ff;
 }
 
 #wiki .mbox-small {
-    clear: right;
-    float: right;
-    margin: 4px 0 4px 1em;
-    box-sizing: border-box;
-    width: 238px;
-    font-size: 88%;
-    line-height: 1.25em;
+  clear: right;
+  float: right;
+  margin: 4px 0 4px 1em;
+  box-sizing: border-box;
+  width: 238px;
+  font-size: 88%;
+  line-height: 1.25em;
 }
 
 #wiki .nobold {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 #wiki .external {
-    background-position: center right;
-    background-repeat: no-repeat;
-    background-image: linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E %3Cpath fill=%22%23fff%22 stroke=%22%2336c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E %3Cpath fill=%22%2336c%22 d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22/%3E %3Cpath fill=%22%23fff%22 d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22/%3E %3C/svg%3E");
-    padding-right: 13px;
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(transparent,transparent),url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22%3E %3Cpath fill=%22%23fff%22 stroke=%22%2336c%22 d=%22M1.5 4.518h5.982V10.5H1.5z%22/%3E %3Cpath fill=%22%2336c%22 d=%22M5.765 1H11v5.39L9.427 7.937l-1.31-1.31L5.393 9.35l-2.69-2.688 2.81-2.808L4.2 2.544z%22/%3E %3Cpath fill=%22%23fff%22 d=%22M9.995 2.004l.022 4.885L8.2 5.07 5.32 7.95 4.09 6.723l2.882-2.88-1.85-1.852z%22/%3E %3C/svg%3E");
+  padding-right: 13px;
 }
 
 #wiki a[href$=".pdf"].external, #wiki a[href*=".pdf?"].external, #wiki a[href*=".pdf#"].external, #wiki a[href$=".PDF"].external, #wiki a[href*=".PDF?"].external, #wiki a[href*=".PDF#"].external {
-    background: url(//upload.wikimedia.org/wikipedia/commons/2/23/Icons-mini-file_acrobat.gif) no-repeat right;
-    background-size: 14px;
-    padding-right: 18px;
+  background: url(//upload.wikimedia.org/wikipedia/commons/2/23/Icons-mini-file_acrobat.gif) no-repeat right;
+  background-size: 14px;
+  padding-right: 18px;
 }
 
 #wiki figure[typeof*="mw:Image/Thumb"] > a::after,
 #wiki figure[typeof*="mw:Video/Thumb"] > a::after,
 #wiki figure[typeof*="mw:Audio/Thumb"] > a::after {
-    float: right;
-    background-image: url(//en.wikipedia.org/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.png?4f704);
-    background-image: linear-gradient(transparent,transparent),url(//en.wikipedia.org/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.svg?7fa0a);
+  float: right;
+  background-image: url(//en.wikipedia.org/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.png?4f704);
+  background-image: linear-gradient(transparent,transparent),url(//en.wikipedia.org/w/resources/src/mediawiki.skinning/images/magnify-clip-ltr.svg?7fa0a);
 }
 
 #wiki figure a:after {
-    content: none;
+  content: none;
 }
 
 #wiki .navbar {
-    min-height: 15px;
-    margin-bottom: 0px;
+  min-height: 15px;
+  margin-bottom: 0px;
 }
 
 #wiki div.NavFrame div.NavHead {
-    position: inherit; /* fix flags in div.NavFrame */
+  position: inherit; /* fix flags in div.NavFrame */
 }
 
 #wiki table {
-    border-spacing: 1px;
-    border-collapse: separate;
+  border-spacing: 1px;
+  border-collapse: separate;
 }
 
 #wiki div.NavFrame div.NavContent td:nth-child(2),
 #wiki div.NavFrame div.NavContent th:nth-child(2)
 {
-    padding: 3px 2px 1px 7px;
+  padding: 3px 2px 1px 7px;
 }
 
 #wiki figure[typeof*="mw:Image"].mw-halign-left:not([id]),
 #wiki figure[typeof*="mw:Video"].mw-halign-left:not([id]),
 #wiki figure[typeof*="mw:Audio"].mw-halign-left:not([id])
 {
-    margin: 0 0.5em 0.5em 0;
+  margin: 0 0.5em 0.5em 0;
 }
 
 #wiki caption, #wiki th {
-    color: inherit;
-    text-align: inherit;
+  color: inherit;
+  text-align: inherit;
 }
 
 #wiki caption {
-    padding-top: 0;
-    padding-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 #wiki .thumbcaption {
-    border: 0;
-    line-height: 1.4em;
-    padding: 3px;
-    font-size: 94%;
-    text-align: left;
+  border: 0;
+  line-height: 1.4em;
+  padding: 3px;
+  font-size: 94%;
+  text-align: left;
 }
 
 #wiki .tmulti .text-align-center {
-    text-align: center;
+  text-align: center;
 }
 
 #wiki .tmulti .thumbcaption {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 #wiki table.wikitable, #wiki table.prettytable {
-    margin: 1em 1em 1em 0;
-    background: #f9f9f9;
-    border: 1px #aaaaaa solid;
-    border-collapse: collapse;
-    vertical-align: top;
+  margin: 1em 1em 1em 0;
+  background: #f9f9f9;
+  border: 1px #aaaaaa solid;
+  border-collapse: collapse;
+  vertical-align: top;
 }
 
 #wiki table.wikitable th, #wiki table.wikitable td, #wiki table.prettytable th, #wiki table.prettytable td {
-    border: 1px #aaa solid;
-    padding: 0.2em;
+  border: 1px #aaa solid;
+  padding: 0.2em;
 }
 
 #wiki #coordinates {
-    position: unset;
+  position: unset;
 }
 
 #collapseWiki .wikipedia-disclaimer {
-    padding: 15px;
-    font-size: 14px;
+  padding: 15px;
+  font-size: 14px;
+  background-color: var(--white-color);
 }
 
 #collapseWiki .wikipedia-credit {
-    margin-top: 10px;
+  margin-top: 10px;
+}
+
+#collapseWiki .wiki-missing {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }

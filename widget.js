@@ -42,7 +42,7 @@ const WIKI = {
                       <div v-if="succeeded" class="wikipedia-disclaimer versal">
                         <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
                         <div class="wikipedia-credit">{{wikipediaCredit}}
-                          <a href="{{wikipediaURL}}" target="_blank">{{wikipediaURL}}</a>
+                          <a :href=wikipediaURL target="_blank">{{wikipediaURL}}</a>
                         </div>
                       </div>
                     </div>
@@ -154,16 +154,15 @@ const WIKI = {
       }
     }
   },
-  generateQueryString: function (url) {
-    const title = url.substring(url.lastIndexOf('/') + 1, url.length)
-    return 'https://' + WIKI.wikiLang + '.wikipedia.org/api/rest_v1/page/html/' + title
+  generateQueryString: function (lang, title) {
+    return 'https://' + lang + '.wikipedia.org/api/rest_v1/page/html/' + title
   },
   // generateTOC: function () {}, //TODO?
   updateAddress: function () {
     this.address = window.location.protocol + '//' + window.location.host + window.location.pathname + window.location.search
   },
-  updateWikipediaURL: function (url) {
-    this.wikipediaURL = url
+  updateWikipediaURL: function (lang, title) {
+    this.wikipediaURL = 'https://' + lang + '.wikipedia.org/wiki/' + title
   },
   queryWikidata: function (wikidataId) {
     const headers = new Headers({
@@ -183,6 +182,10 @@ const WIKI = {
       })
       .then(data => {
         const siteLinks = data.entities[wikidataId].sitelinks
+        if (Object.keys(siteLinks).length === 0) {
+          return
+        }
+        let lang = WIKI.wikiLang
         if (WIKI.wikiLang + 'wiki' in siteLinks) {
           wikiLabel = siteLinks[WIKI.wikiLang + 'wiki'].title
         } else {
@@ -190,10 +193,12 @@ const WIKI = {
             const siteName = languageCodes[idx] + 'wiki'
             if (siteName in siteLinks) {
               wikiLabel = siteLinks[siteName].title
+              lang = languageCodes[idx]
+              break
             }
           }
         }
-        return wikiLabel
+        return {'lang': lang, 'label': wikiLabel}
       })
   },
   queryWikipedia: function (url) {
@@ -203,6 +208,12 @@ const WIKI = {
     })
     fetch(url, { headers })
       .then(response => {
+        if (response.status === 404) {
+          WIKI.succeeded = false
+          WIKI.message = WIKI.getTranslation('error')
+          this.render()
+          return
+        }
         return response.text()
       })
       .then(data => {
@@ -285,7 +296,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
           }
         } else {
-          if (concept['skos:closeMatch'].uri.startsWith('wd:')) {
+          if ('skos:closeMatch' in concept && concept['skos:closeMatch'].uri.startsWith('wd:')) {
             const wikidataId = concept['skos:closeMatch'].uri.replace('wd:', '')
             closeMatches.push(wikidataId)
           }
@@ -296,13 +307,14 @@ document.addEventListener('DOMContentLoaded', function () {
       return
     }
     WIKI.queryWikidata(closeMatches[0])
-      .then(wikiLabel => {
-        if (wikiLabel) {
-          const restURL = WIKI.generateQueryString('https://fi.wikipedia.org/wiki/' + wikiLabel)
-          WIKI.updateWikipediaURL(restURL)
+      .then(results => {
+        if (results) {
+          const restURL  = WIKI.generateQueryString(results.lang, results.label)
+          WIKI.updateWikipediaURL(results.lang, results.label)
           WIKI.updateAddress()
           WIKI.queryWikipedia(restURL)
-        } else {
+        }
+        else {
           WIKI.succeeded = false
           WIKI.message = WIKI.getTranslation('404')
           WIKI.render()

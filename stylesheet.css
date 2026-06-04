@@ -6,7 +6,7 @@
   margin-bottom: 20px;
 }
 
-#wiki-widget > .panel, .concept-widget #wiki {
+#wiki-widget > .panel, #wiki-widget #wiki {
   background-color: var(--white-color);
   border-radius: 0;
   border: 0;
@@ -24,19 +24,6 @@
 #headingWiki {
   font-size: 16px;
   border-bottom: 1px solid #bbb;
-}
-
-#headingWiki > a > .glyphicon {
-  color: #83CFC8;
-  top: 3px;
-}
-
-#headingWiki > a + a {
-  margin-left: 15px;
-}
-
-#headingWiki > a > .greyed-out {
-    color: #BDBDBD;
 }
 
 #collapseWiki {
@@ -79,7 +66,7 @@
 }
 
 #wiki p, #wiki td[style*="font-size"] a {
-  font-size: 1.2rem;
+  font-size: inherit;
 }
 
 #wiki sup {

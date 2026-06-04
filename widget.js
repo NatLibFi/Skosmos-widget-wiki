@@ -18,7 +18,7 @@ const WIKI = {
           loading: true
         }
       },
-      template: `<div id="wiki-widget panel-group" role="tablist" aria-multiselectable="true">
+      template: `<div id="wiki-widget" class="panel-group" role="tablist" aria-multiselectable="true">
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingWiki">
                       <button
@@ -34,7 +34,7 @@ const WIKI = {
                     </div>
                     <div id="collapseWiki" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="headingWiki">
                       <div class="panel-body">
-                        <div id="wiki" class="panel mw-parser-output" role="tabpanel" aria-labelledby="headingWikiWidget">
+                        <div id="wiki" class="panel mw-parser-output" role="tabpanel" aria-labelledby="headingWiki">
                           <div v-if="succeeded" v-html="wikipediaHTML"></div>
                           <div class="wiki-missing" v-else>{{message}}</div>
                         </div>
@@ -42,7 +42,7 @@ const WIKI = {
                       <div v-if="succeeded" class="wikipedia-disclaimer versal">
                         <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
                         <div class="wikipedia-credit">{{wikipediaCredit}}
-                          <a :href=wikipediaURL target="_blank">{{wikipediaURL}}</a>
+                          <a :href=wikipediaURL target="_blank" rel="noopener noreferrer">{{wikipediaURL}}</a>
                         </div>
                       </div>
                     </div>
@@ -200,6 +200,9 @@ const WIKI = {
         }
         return {'lang': lang, 'label': wikiLabel}
       })
+      .catch(error => {
+        return {'error': 'Failed to fetch Wikidata'}
+      })
   },
   queryWikipedia: function (url) {
     const headers = new Headers({
@@ -210,7 +213,7 @@ const WIKI = {
       .then(response => {
         if (response.status === 404) {
           WIKI.succeeded = false
-          WIKI.message = WIKI.getTranslation('error')
+          WIKI.message = WIKI.getTranslation('404')
           this.render()
           return
         }
@@ -229,7 +232,7 @@ const WIKI = {
         cleaned = cleaned.replace(/src="\/(?!\/)/g, 'src="https://' + WIKI.wikiLang + '.wikipedia.org/')
 
         // fix links in dom nodes
-        cleaned = WIKI.fixLinks(cleaned, WIKI.wikiLang)
+        cleaned = WIKI.fixLinks(cleaned)
         WIKI.wikipediaHTML = cleaned
         this.render()
       })
@@ -239,7 +242,7 @@ const WIKI = {
         this.render()
       })
   },
-  render: function (object) {
+  render: function () {
     const mountPoint = document.getElementById('wiki-plugin')
     if (mountPoint) {
       if (this.vueApp) {
@@ -309,10 +312,12 @@ document.addEventListener('DOMContentLoaded', function () {
     WIKI.queryWikidata(closeMatches[0])
       .then(results => {
         if (results) {
-          const restURL  = WIKI.generateQueryString(results.lang, results.label)
-          WIKI.updateWikipediaURL(results.lang, results.label)
-          WIKI.updateAddress()
-          WIKI.queryWikipedia(restURL)
+          if (!('error' in results)) {
+            const restURL  = WIKI.generateQueryString(results.lang, results.label)
+            WIKI.updateWikipediaURL(results.lang, results.label)
+            WIKI.updateAddress()
+            WIKI.queryWikipedia(restURL)
+          }
         }
         else {
           WIKI.succeeded = false

@@ -38,12 +38,12 @@ const WIKI = {
                           <div v-if="succeeded" v-html="wikipediaHTML"></div>
                           <div class="wiki-missing" v-else>{{message}}</div>
                         </div>
-                      </div>
-                      <div v-if="succeeded" class="wikipedia-disclaimer versal">
-                        <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
-                        <div class="wikipedia-credit">{{wikipediaCredit}}
-                          <a :href=wikipediaURL target="_blank" rel="noopener noreferrer">{{wikipediaURL}}</a>
+                        <div v-if="succeeded" class="wikipedia-disclaimer versal">
+                          <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
                         </div>
+                      </div>
+                      <div id="wikipedia-credit">
+                        <a :href=wikipediaURL target="_blank" rel="noopener noreferrer">{{wikipediaCredit}}</a>
                       </div>
                     </div>
                   </div>
@@ -63,16 +63,16 @@ const WIKI = {
     }
     if (key === '404') {
       return {
-        fi: 'Ei wikipedia-sivua sanaston tukemilla kielillä.',
-        sv: 'Inte något wikipedia-sidan på vokabulär språk.',
-        en: 'No wikipedia article on any vocabulary language.'
+        fi: 'Ei Wikipedia-sivua sanaston tukemilla kielillä.',
+        sv: 'Inte något Wikipedia-sidan på vokabulär språk.',
+        en: 'No Wikipedia article on any vocabulary language.'
       }[getLang]
     }
     if (key === 'error') {
       return {
         fi: 'Wikipedia-sivun lataamisessa tapahtui virhe.',
         sv: 'Wikipedia-sidan kan inte laddas.',
-        en: 'Could not load wikipedia page.'
+        en: 'Could not load Wikipedia page.'
       }[getLang]
     } else if (key === 'wikipediaCaption') {
       const pref = window.SKOSMOS.prefLabels.find(item => item.lang === getLang).label
@@ -89,9 +89,9 @@ const WIKI = {
       }[getLang]
     } else if (key === 'wikipediaCredit') {
       return {
-        fi: 'Katso sivu Wikipediassa: ',
-        sv: 'Se sidan på Wikipedia: ',
-        en: 'See the page in Wikipedia: '
+        fi: 'Katso sivu Wikipediassa',
+        sv: 'Se sidan på Wikipedia',
+        en: 'See the page in Wikipedia'
       }[getLang]
     } else {
       return ''
@@ -242,7 +242,7 @@ const WIKI = {
         this.render()
       })
   },
-  render: function () {
+  appendMountPoint: function() {
     const mountPoint = document.getElementById('wiki-plugin')
     if (mountPoint) {
       if (this.vueApp) {
@@ -253,7 +253,8 @@ const WIKI = {
     const newMountPoint = document.createElement('div')
     newMountPoint.id = 'wiki-plugin'
     document.getElementById('main-content-bottom-slot').appendChild(newMountPoint)
-
+  },
+  render: function () {
     this.vueApp = this.createVueApp()
     this.vueApp.mount('#wiki-plugin')
   },
@@ -275,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (data.pageType !== 'concept' || data.prefLabels === undefined || Object.keys(data.jsonLd).length === 0) {
       return
     }
-
+    WIKI.appendMountPoint()
     WIKI.wikiLang = window.SKOSMOS.content_lang
     const context = data.jsonLd['@context']
     const jsonLdUriSpace = Object.keys(context).find(key => context[key] === window.SKOSMOS.uriSpace)
@@ -309,14 +310,19 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!closeMatches.length) {
       return
     }
+    WIKI.wikipediaURL = null
+    WIKI.address = ''
     WIKI.queryWikidata(closeMatches[0])
       .then(results => {
         if (results) {
           if (!('error' in results)) {
-            const restURL  = WIKI.generateQueryString(results.lang, results.label)
-            WIKI.updateWikipediaURL(results.lang, results.label)
-            WIKI.updateAddress()
-            WIKI.queryWikipedia(restURL)
+            // check that value is not null etc.
+            if (typeof results.label === 'string') {
+              const restURL = WIKI.generateQueryString(results.lang, results.label)
+              WIKI.updateWikipediaURL(results.lang, results.label)
+              WIKI.updateAddress()
+              WIKI.queryWikipedia(restURL)
+            }
           }
         }
         else {

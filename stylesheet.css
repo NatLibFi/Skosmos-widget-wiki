@@ -2,12 +2,40 @@
  * Stylesheet for the widget. Designed for finto.fi. Complements wiki CSS. *
  *   */
 #wiki-widget {
-  background-color: var(--white-color);
-  margin-bottom: 20px;
+  background-color: var(--secondary-light-color);
 }
 
+/* Setting scrollbar style separately in Firefox */
+@-moz-document url-prefix() {
+  #wiki-widget .panel-body {
+    scrollbar-color: var(--scrollbar-thumb) var(--search-dropdown-bg);
+  }
+}
+
+/* Setting scrollbar style for Webkit based browsers (Chrome, Safari, Edge, etc) */
+#wiki-widget .panel-body::-webkit-scrollbar {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+#wiki-widget .panel-body::-webkit-scrollbar:vertical {
+    width: 15px;
+}
+
+#wiki-widget .panel-body::-webkit-scrollbar-thumb {
+    border-radius: 0;
+    border: 1px solid var(--scrollbar-thumb);
+    background-color: var(--scrollbar-thumb);
+}
+
+#wiki-widget .panel-body::-webkit-scrollbar-track {
+    background-color: var(--search-dropdown-bg);
+    border-radius: 0;
+}
+
+
 #wiki-widget > .panel, #wiki-widget #wiki {
-  background-color: var(--white-color);
   border-radius: 0;
   border: 0;
   box-shadow: none;
@@ -52,9 +80,15 @@
 }
 
 #wiki {
-  font-size: 1.2rem;
-  overflow-y: auto;
-  background-color: var(--white-color);
+  background-color: var(--secondary-light-color);
+}
+
+#wiki section > *:not(h2):not(h3),
+#wiki ul > *,
+#wiki ol > *,
+#wiki td > a
+{
+  font-size: 1rem;
 }
 
 #wiki table > tbody > tr > td {
@@ -104,17 +138,13 @@
   font-size: 12px;
 }
 
-/* // smaller references
 #wiki .mw-ref {
     font-size: 75%;
 }
-*/
 
-/* // default all font sizes
 #wiki .infobox * {
     font-size:unset;
 }
-*/
 
 #wiki a.new {
   /*override default with important (see issue #4) */
@@ -237,11 +267,34 @@
 #collapseWiki .wikipedia-disclaimer {
   padding: 15px;
   font-size: 14px;
-  background-color: var(--white-color);
+  background-color: var(--secondary-light-color);
 }
 
-#collapseWiki .wikipedia-credit {
-  margin-top: 10px;
+#wiki-widget .panel-collapse {
+  display: flex;
+  flex-direction: column;
+}
+
+#wiki-widget .panel-body {
+  flex: 1;
+  overflow-y: auto;
+}
+
+#wikipedia-credit {
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid var(--light-color);
+  background-color: var(--white-color);
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+  z-index: 1000;
+}
+
+#wikipedia-credit a {
+  font-size: 1.2rem;
+  font-weight: lighter;
 }
 
 #collapseWiki .wiki-missing {

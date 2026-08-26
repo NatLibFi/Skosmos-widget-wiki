@@ -200,10 +200,10 @@ const WIKI = {
             }
           }
         }
-        return {'lang': lang, 'label': wikiLabel}
+        return { lang, label: wikiLabel }
       })
       .catch(error => {
-        return {'error': 'Failed to fetch Wikidata'}
+        return { error: 'Failed to fetch Wikidata' }
       })
   },
   queryWikipedia: function (url) {
@@ -244,7 +244,7 @@ const WIKI = {
         this.render()
       })
   },
-  appendMountPoint: function() {
+  appendMountPoint: function () {
     const mountPoint = document.getElementById('wiki-plugin')
     if (mountPoint) {
       if (this.vueApp) {
@@ -326,8 +326,7 @@ document.addEventListener('DOMContentLoaded', function () {
               WIKI.queryWikipedia(restURL)
             }
           }
-        }
-        else {
+        } else {
           WIKI.succeeded = false
           WIKI.message = WIKI.getTranslation('404')
           WIKI.render()

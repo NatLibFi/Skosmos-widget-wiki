@@ -33,16 +33,18 @@ const WIKI = {
                       </button>
                     </div>
                     <div id="collapseWiki" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="headingWiki">
-                      <div class="panel-body">
-                        <div id="wiki" class="panel mw-parser-output" role="tabpanel" aria-labelledby="headingWiki">
-                          <div v-if="succeeded" v-html="wikipediaHTML"></div>
-                          <div class="wiki-missing" v-else>{{message}}</div>
-                        </div>
-                        <div v-if="succeeded" class="wikipedia-disclaimer versal">
-                          <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
+                      <div v-if="succeeded" class="panel-body-wrapper">
+                        <div class="panel-body">
+                          <div id="wiki" class="panel mw-parser-output" role="tabpanel" aria-labelledby="headingWiki">
+                            <div v-html="wikipediaHTML"></div>
+                          </div>
+                          <div class="wikipedia-disclaimer versal">
+                            <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
+                          </div>
                         </div>
                       </div>
-                      <div id="wikipedia-credit">
+                      <div class="wiki-missing" v-else>{{message}}</div>
+                      <div v-if="succeeded" id="wikipedia-credit">
                         <a :href=wikipediaURL target="_blank" rel="noopener noreferrer">{{wikipediaCredit}}</a>
                       </div>
                     </div>

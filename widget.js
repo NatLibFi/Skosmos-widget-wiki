@@ -32,9 +32,9 @@ const WIKI = {
                         {{wikipediaCaption}}
                       </button>
                     </div>
-                    <div id="collapseWiki" class="panel-collapse collapse show" role="tabpanel" aria-labelledby="headingWiki">
-                      <div v-if="succeeded" class="panel-body-wrapper">
-                        <div class="panel-body">
+                    <div id="collapseWiki" class="accordion-collapse collapse show" role="tabpanel" aria-labelledby="headingWiki">
+                      <div class="accordion-body">
+                        <div v-if="succeeded" class="panel-body">
                           <div id="wiki" class="panel mw-parser-output" role="tabpanel" aria-labelledby="headingWiki">
                             <div v-html="wikipediaHTML"></div>
                           </div>

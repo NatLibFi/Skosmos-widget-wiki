@@ -5,6 +5,11 @@
   background-color: var(--secondary-light-color);
 }
 
+#wiki-widget .panel-body {
+  max-height: 400px;
+  overflow: auto;
+}
+
 /* Setting scrollbar style separately in Firefox */
 @-moz-document url-prefix() {
   #wiki-widget .panel-body {
@@ -52,11 +57,6 @@
 #headingWiki {
   font-size: 16px;
   border-bottom: 1px solid var(--secondary-medium-color);
-}
-
-#collapseWiki {
-  max-height: 400px;
-  overflow: auto;
 }
 
 #headingWiki .accordion-button {

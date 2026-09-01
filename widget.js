@@ -13,9 +13,7 @@ const WIKI = {
           wikipediaTermsAndConditions: WIKI.getTranslation('wikipediaTerms'),
           wikipediaCredit: WIKI.getTranslation('wikipediaCredit'),
           wikipediaURL: WIKI.wikipediaURL,
-          wikipediaHTML: WIKI.wikipediaHTML,
-          mappings: {},
-          loading: true
+          wikipediaHTML: WIKI.wikipediaHTML
         }
       },
       template: `<div id="wiki-widget" class="panel-group" role="tablist" aria-multiselectable="true">
@@ -42,8 +40,8 @@ const WIKI = {
                             <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
                           </div>
                         </div>
+                        <div class="wiki-missing" v-else>{{message}}</div>
                       </div>
-                      <div class="wiki-missing" v-else>{{message}}</div>
                       <div v-if="succeeded" id="wikipedia-credit">
                         <a :href=wikipediaURL target="_blank" rel="noopener noreferrer">{{wikipediaCredit}}</a>
                       </div>

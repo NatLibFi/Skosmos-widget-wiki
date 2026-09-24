@@ -11,7 +11,7 @@ const WIKI = {
           wikipediaLang: WIKI.wikiLang,
           wikipediaCaption: WIKI.getTranslation('wikipediaCaption'),
           wikipediaTermsAndConditions: WIKI.getTranslation('wikipediaTerms'),
-          wikipediaCredit: WIKI.getTranslation('wikipediaCredit'),
+          wikipediaLink: WIKI.getTranslation('wikipediaLink'),
           wikipediaURL: WIKI.wikipediaURL,
           wikipediaHTML: WIKI.wikipediaHTML
         }
@@ -19,16 +19,18 @@ const WIKI = {
       template: `<div id="wiki-widget" class="panel-group" role="tablist" aria-multiselectable="true">
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingWiki">
-                      <button
-                       class="accordion-button accordion"
-                       type="button"
-                       data-bs-toggle="collapse"
-                       data-bs-target="#collapseWiki"
-                       aria-expanded="true"
-                       aria-controls="collapseWiki"
-                      >
-                        {{wikipediaCaption}}
-                      </button>
+                      <h2>
+                        <button
+                        class="accordion-button accordion"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseWiki"
+                        aria-expanded="true"
+                        aria-controls="collapseWiki"
+                        >
+                          {{wikipediaCaption}}
+                        </button>
+                      </h2>
                     </div>
                     <div id="collapseWiki" class="accordion-collapse collapse show" role="tabpanel" aria-labelledby="headingWiki">
                       <div class="accordion-body">
@@ -43,7 +45,7 @@ const WIKI = {
                         <div class="wiki-missing" v-else>{{message}}</div>
                       </div>
                       <div v-if="succeeded" id="wikipedia-credit">
-                        <a :href=wikipediaURL target="_blank" rel="noopener noreferrer">{{wikipediaCredit}}</a>
+                        <a :href=wikipediaURL target="_blank" rel="noopener noreferrer">{{wikipediaLink}}</a>
                       </div>
                     </div>
                   </div>
@@ -87,7 +89,7 @@ const WIKI = {
         sv: 'Wikipedias text är tillgänglig under licensen  <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.sv" target="_blank">Creative Commons Erkännande-dela-lika 3.0 Unported</a>. För bilder, se respektive bildsida (klicka på bilden). Se vidare <a href="//sv.wikipedia.org/wiki/Wikipedia:Upphovsrätt" target="_blank">Wikipedia:Upphovsrätt</a> och <a href="//wikimediafoundation.org/wiki/Terms_of_Use" target="_blank">användarvillkor</a>.',
         en: 'Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="display:none;"></a>; additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use" target="_blank">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/" target="_blank">Wikimedia Foundation, Inc.</a>, a non-profit organization.'
       }[getLang]
-    } else if (key === 'wikipediaCredit') {
+    } else if (key === 'wikipediaLink') {
       return {
         fi: 'Katso sivu Wikipediassa',
         sv: 'Se sidan på Wikipedia',
@@ -108,6 +110,13 @@ const WIKI = {
       IMG: ['src', 'srcset', 'resource']
     }
 
+    const headers = temp.querySelectorAll('h2')
+      headers.forEach(header => {
+        const newHeader = document.createElement('h3');
+        newHeader.innerHTML = header.innerHTML;
+        header.parentNode.replaceChild(newHeader, header);
+    })
+
     const elements = temp.querySelectorAll('a, link, img')
     elements.forEach(elem => {
       if (elem.hash && elem.hash.startsWith('#cite_')) {
@@ -115,6 +124,8 @@ const WIKI = {
       } else {
         elem.target = '_blank'
       }
+
+      elem.style.textDecoration = 'underline';
 
       const tagAttrs = attrs[elem.tagName]
       if (!tagAttrs) return

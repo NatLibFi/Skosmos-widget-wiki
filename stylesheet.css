@@ -54,11 +54,6 @@
   background-color: var(--white-color);
 }
 
-#headingWiki {
-  font-size: 16px;
-  border-bottom: 1px solid var(--secondary-medium-color);
-}
-
 #headingWiki .accordion-button {
   background-color: var(--white-color);
   padding-top: 0.5rem;
@@ -67,12 +62,17 @@
   padding-left: 1rem;
   font-weight: bold;
   font-size: 1.2rem;
+  font-family: var(--font-family);
   color: var(--dark-color);
   margin-top: .2rem;
 }
 
 #wiki {
   background-color: var(--secondary-light-color);
+}
+
+#wiki h3 {
+  font-family: var(--font-family-heading);
 }
 
 #wiki section > *:not(h2):not(h3),

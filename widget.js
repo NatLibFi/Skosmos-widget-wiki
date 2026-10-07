@@ -111,10 +111,10 @@ const WIKI = {
     }
 
     const headers = temp.querySelectorAll('h2')
-      headers.forEach(header => {
-        const newHeader = document.createElement('h3');
-        newHeader.innerHTML = header.innerHTML;
-        header.parentNode.replaceChild(newHeader, header);
+    headers.forEach(header => {
+      const newHeader = document.createElement('h3')
+      newHeader.innerHTML = header.innerHTML
+      header.parentNode.replaceChild(newHeader, header)
     })
 
     const elements = temp.querySelectorAll('a, link, img')
@@ -125,7 +125,7 @@ const WIKI = {
         elem.target = '_blank'
       }
 
-      elem.style.textDecoration = 'underline';
+      elem.style.textDecoration = 'underline'
 
       const tagAttrs = attrs[elem.tagName]
       if (!tagAttrs) return

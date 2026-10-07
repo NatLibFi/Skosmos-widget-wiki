@@ -3,6 +3,7 @@
  *   */
 #wiki-widget {
   background-color: var(--secondary-light-color);
+  margin-top: 1rem;
 }
 
 #wiki-widget .panel-body {
@@ -39,7 +40,6 @@
     border-radius: 0;
 }
 
-
 #wiki-widget > .panel, #wiki-widget #wiki {
   border-radius: 0;
   border: 0;
@@ -59,16 +59,16 @@
   padding-top: 0.5rem;
   padding-right: 1rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 1.9rem;
   font-weight: bold;
   font-size: 1.2rem;
   font-family: var(--font-family);
   color: var(--dark-color);
-  margin-top: .2rem;
 }
 
 #wiki {
   background-color: var(--secondary-light-color);
+  padding-left: 0.9rem;
 }
 
 #wiki h3 {
@@ -257,7 +257,7 @@
 }
 
 #collapseWiki .wikipedia-disclaimer {
-  padding: 15px;
+  padding: 0rem 1.9rem 0.9rem 1.9rem;
   font-size: 14px;
   background-color: var(--secondary-light-color);
 }
@@ -284,8 +284,7 @@
   padding-top: 0.5rem;
   padding-right: 1rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  z-index: 1000;
+  padding-left: 1.9rem;
 }
 
 #wikipedia-credit a {
@@ -300,6 +299,6 @@
 #collapseWiki .wiki-missing {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 1.9rem;
   padding-right: 1rem;
 }

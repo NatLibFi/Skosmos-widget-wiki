@@ -19,7 +19,7 @@ const WIKI = {
       template: `<div id="wiki-widget" class="panel-group" role="tablist" aria-multiselectable="true">
                   <div class="panel panel-default">
                     <div class="panel-heading" role="tab" id="headingWiki">
-                      <h2>
+                      <h2 class="mb-0">
                         <button
                         class="accordion-button accordion"
                         type="button"
@@ -66,7 +66,7 @@ const WIKI = {
     if (key === '404') {
       return {
         fi: 'Ei Wikipedia-sivua sanaston tukemilla kielillä.',
-        sv: 'Inte något Wikipedia-sidan på vokabulär språk.',
+        sv: 'Ingen Wikipedia-sida på vokabulärens språk.',
         en: 'No Wikipedia article on any vocabulary language.'
       }[getLang]
     }
@@ -86,7 +86,7 @@ const WIKI = {
     } else if (key === 'wikipediaTerms') {
       return {
         fi: 'Teksti on saatavilla <a rel="license" href="//fi.wikipedia.org/wiki/Wikipedia:Creative_Commons_Attribution-Share_Alike_3.0_Unported_-lisenssiehdot" target="_blank">Creative Commons Attribution/Share-Alike</a> -lisenssillä; lisäehtoja voi sisältyä. Katso <a href="//wikimediafoundation.org/wiki/Terms_of_Use/fi" target="_blank">käyttöehdot</a>. Wikipedia® on <a href="http://www.wikimediafoundation.org" target="_blank">Wikimedia Foundationin</a> rekisteröimä tavaramerkki.',
-        sv: 'Wikipedias text är tillgänglig under licensen  <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.sv" target="_blank">Creative Commons Erkännande-dela-lika 3.0 Unported</a>. För bilder, se respektive bildsida (klicka på bilden). Se vidare <a href="//sv.wikipedia.org/wiki/Wikipedia:Upphovsrätt" target="_blank">Wikipedia:Upphovsrätt</a> och <a href="//wikimediafoundation.org/wiki/Terms_of_Use" target="_blank">användarvillkor</a>.',
+        sv: 'Texten är tillgänglig under licensen <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.sv" target="_blank">Creative Commons Erkännande-dela-lika 3.0 Unported</a>; tilläggsvillkor kan ingå.  Se <a href="//sv.wikipedia.org/wiki/Wikipedia:Upphovsrätt" target="_blank">Wikipedia:Upphovsrätt</a> och <a href="//foundation.wikimedia.org/wiki/Policy:Terms_of_Use/sv" target="_blank">användarvillkor</a>. Wikipedia® är ett varumärke registrerat av <a href="//www.wikimediafoundation.org/" target="_blank">Wikimedia Foundation</a>.',
         en: 'Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="display:none;"></a>; additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use" target="_blank">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/" target="_blank">Wikimedia Foundation, Inc.</a>, a non-profit organization.'
       }[getLang]
     } else if (key === 'wikipediaLink') {

@@ -3,6 +3,7 @@
  *   */
 #wiki-widget {
   background-color: var(--secondary-light-color);
+  margin-top: 1rem;
 }
 
 #wiki-widget .panel-body {
@@ -29,16 +30,15 @@
 }
 
 #wiki-widget .panel-body::-webkit-scrollbar-thumb {
-    border-radius: 0;
-    border: 1px solid var(--scrollbar-thumb);
-    background-color: var(--scrollbar-thumb);
+  border-radius: 0;
+  border: 1px solid var(--scrollbar-thumb);
+  background-color: var(--scrollbar-thumb);
 }
 
 #wiki-widget .panel-body::-webkit-scrollbar-track {
-    background-color: var(--search-dropdown-bg);
-    border-radius: 0;
+  background-color: var(--search-dropdown-bg);
+  border-radius: 0;
 }
-
 
 #wiki-widget > .panel, #wiki-widget #wiki {
   border-radius: 0;
@@ -54,25 +54,25 @@
   background-color: var(--white-color);
 }
 
-#headingWiki {
-  font-size: 16px;
-  border-bottom: 1px solid var(--secondary-medium-color);
-}
-
 #headingWiki .accordion-button {
   background-color: var(--white-color);
   padding-top: 0.5rem;
-  padding-right: 1rem;
+  padding-right: 1.9rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
+  padding-left: 1.9rem;
   font-weight: bold;
   font-size: 1.2rem;
+  font-family: var(--font-family);
   color: var(--dark-color);
-  margin-top: .2rem;
 }
 
 #wiki {
   background-color: var(--secondary-light-color);
+  padding-left: 0.9rem;
+}
+
+#wiki h3 {
+  font-family: var(--font-family-heading);
 }
 
 #wiki section > *:not(h2):not(h3),
@@ -257,9 +257,13 @@
 }
 
 #collapseWiki .wikipedia-disclaimer {
-  padding: 15px;
+  padding: 0rem 1.9rem 0.9rem 1.9rem;
   font-size: 14px;
   background-color: var(--secondary-light-color);
+}
+
+#collapseWiki .wikipedia-disclaimer a {
+  text-decoration: underline;
 }
 
 #wiki-widget .panel-body-wrapper {
@@ -278,10 +282,9 @@
   border-top: 1px solid var(--light-color);
   background-color: var(--white-color);
   padding-top: 0.5rem;
-  padding-right: 1rem;
+  padding-right: 1.9rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  z-index: 1000;
+  padding-left: 1.9rem;
 }
 
 #wikipedia-credit a {
@@ -289,9 +292,13 @@
   font-weight: lighter;
 }
 
+#wikipedia-credit a:hover {
+  text-decoration: underline;
+}
+
 #collapseWiki .wiki-missing {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: 1.9rem;
+  padding-right: 1.9rem;
 }

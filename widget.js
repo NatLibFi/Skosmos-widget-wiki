@@ -60,40 +60,45 @@ const WIKI = {
   address: '',
   getTranslation: function (key) {
     let getLang = window.SKOSMOS.lang
-    if (getLang !== 'fi' && getLang !== 'sv') {
+    if (getLang !== 'fi' && getLang !== 'sv' && getLang !== 'se') {
       getLang = 'en'
     }
     if (key === '404') {
       return {
         fi: 'Ei Wikipedia-sivua sanaston tukemilla kielillä.',
         sv: 'Ingen Wikipedia-sida på vokabulärens språk.',
-        en: 'No Wikipedia article on any vocabulary language.'
+        en: 'No Wikipedia article on any vocabulary language.',
+        se: 'Ii Wikipedia-siiddu sátneráju gielaiguin.'
       }[getLang]
     }
     if (key === 'error') {
       return {
         fi: 'Wikipedia-sivun lataamisessa tapahtui virhe.',
         sv: 'Wikipedia-sidan kan inte laddas.',
-        en: 'Could not load Wikipedia page.'
+        en: 'Could not load Wikipedia page.',
+        se: 'Wikipedia-siiddu luđemis dáhpáhuvai feaila.'
       }[getLang]
     } else if (key === 'wikipediaCaption') {
       const pref = window.SKOSMOS.prefLabels.find(item => item.lang === getLang).label
       return {
         fi: pref + ' Wikipediassa',
         sv: pref + ' på Wikipedia',
-        en: pref + ' in Wikipedia'
+        en: pref + ' in Wikipedia',
+        se: pref + ' Wikipedias'
       }[getLang]
     } else if (key === 'wikipediaTerms') {
       return {
-        fi: 'Teksti on saatavilla <a rel="license" href="//fi.wikipedia.org/wiki/Wikipedia:Creative_Commons_Attribution-Share_Alike_3.0_Unported_-lisenssiehdot" target="_blank">Creative Commons Attribution/Share-Alike</a> -lisenssillä; lisäehtoja voi sisältyä. Katso <a href="//wikimediafoundation.org/wiki/Terms_of_Use/fi" target="_blank">käyttöehdot</a>. Wikipedia® on <a href="http://www.wikimediafoundation.org" target="_blank">Wikimedia Foundationin</a> rekisteröimä tavaramerkki.',
-        sv: 'Texten är tillgänglig under licensen <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.sv" target="_blank">Creative Commons Erkännande-dela-lika 3.0 Unported</a>; tilläggsvillkor kan ingå.  Se <a href="//sv.wikipedia.org/wiki/Wikipedia:Upphovsrätt" target="_blank">Wikipedia:Upphovsrätt</a> och <a href="//foundation.wikimedia.org/wiki/Policy:Terms_of_Use/sv" target="_blank">användarvillkor</a>. Wikipedia® är ett varumärke registrerat av <a href="//www.wikimediafoundation.org/" target="_blank">Wikimedia Foundation</a>.',
-        en: 'Text is available under the <a rel="license" href="//en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License" target="_blank">Creative Commons Attribution-ShareAlike License</a><a rel="license" href="//creativecommons.org/licenses/by-sa/3.0/" target="_blank" style="display:none;"></a>; additional terms may apply.  By using this site, you agree to the <a href="//wikimediafoundation.org/wiki/Terms_of_Use" target="_blank">Terms of Use</a> and <a href="//wikimediafoundation.org/wiki/Privacy_policy" target="_blank">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="//www.wikimediafoundation.org/" target="_blank">Wikimedia Foundation, Inc.</a>, a non-profit organization.'
+        fi: 'Teksti on saatavilla <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fi">Creative Commons Nimeä-JaaSamoin 4.0</a> -lisenssillä; lisäehtoja voi sisältyä. Katso <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use/fi">käyttöehdot</a>. Wikipedia® on <a href="https://wikimediafoundation.org/">Wikimedia Foundationin</a> rekisteröimä tavaramerkki.',
+        sv: 'Wikipedias text är tillgänglig under licensen  <a href="//creativecommons.org/licenses/by-sa/4.0/deed.sv">Creative Commons Erkännande-dela-lika 4.0 Unported</a>. För bilder, se respektive bildsida (klicka på bilden). Se vidare <a href="https://sv.wikipedia.org/wiki/Wikipedia:Upphovsr%C3%A4tt">Wikipedia:Upphovsrätt</a> och <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use">användarvillkor</a>.',
+        en: 'Text is available under the <a href="https://en.wikipedia.org/wiki/Wikipedia:Text_of_the_Creative_Commons_Attribution-ShareAlike_4.0_International_License">Creative Commons Attribution-ShareAlike 4.0 License</a>; additional terms may apply. By using this site, you agree to the <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use"">Terms of Use</a> and <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Privacy_policy">Privacy Policy</a>. Wikipedia® is a registered trademark of the <a href="https://wikimediafoundation.org/">Wikimedia Foundation, Inc.</a>, a non-profit organization.',
+        se: 'Sisdoallu lea almmus <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution/Share-Alike License</a>-liseanssain, muhto sáhttá sisdoallat lásseeavttuid. Geahča <a href="https://foundation.wikimedia.org/wiki/Special:MyLanguage/Policy:Terms_of_Use">geavahaneavttuid</a>.'
       }[getLang]
     } else if (key === 'wikipediaLink') {
       return {
         fi: 'Katso sivu Wikipediassa',
         sv: 'Se sidan på Wikipedia',
-        en: 'See the page in Wikipedia'
+        en: 'See the page in Wikipedia',
+        se: 'Geahča siiddu Wikipedias'
       }[getLang]
     } else {
       return ''

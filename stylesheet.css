@@ -2,55 +2,55 @@
  * Stylesheet for the widget. Designed for finto.fi. Complements wiki CSS. *
  *   */
 #wiki-widget {
-  background-color: var(--secondary-light-color);
   margin-top: 1rem;
 }
 
-#wiki-widget .panel-body {
+#wiki-widget .accordion-body {
   max-height: 400px;
   overflow: auto;
+  background-color: var(--secondary-light-color);
 }
 
 /* Setting scrollbar style separately in Firefox */
 @-moz-document url-prefix() {
-  #wiki-widget .panel-body {
+  #wiki-widget .accordion-body {
     scrollbar-color: var(--scrollbar-thumb) var(--search-dropdown-bg);
   }
 }
 
 /* Setting scrollbar style for Webkit based browsers (Chrome, Safari, Edge, etc) */
-#wiki-widget .panel-body::-webkit-scrollbar {
+#wiki-widget .accordion-body::-webkit-scrollbar {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-#wiki-widget .panel-body::-webkit-scrollbar:vertical {
+#wiki-widget .accordion-body::-webkit-scrollbar:vertical {
     width: 15px;
 }
 
-#wiki-widget .panel-body::-webkit-scrollbar-thumb {
+#wiki-widget .accordion-body::-webkit-scrollbar-thumb {
   border-radius: 0;
   border: 1px solid var(--scrollbar-thumb);
   background-color: var(--scrollbar-thumb);
 }
 
-#wiki-widget .panel-body::-webkit-scrollbar-track {
+#wiki-widget .accordion-body::-webkit-scrollbar-track {
   background-color: var(--search-dropdown-bg);
   border-radius: 0;
 }
 
-#wiki-widget > .panel, #wiki-widget #wiki {
+#wiki-widget > .accordion-body, #wiki-widget #wiki {
   border-radius: 0;
   border: 0;
   box-shadow: none;
 }
 
-#wiki-widget > .panel > #headingWiki {
+#wiki-widget > .accordion-body > #headingWiki {
   background-color: var(--white-color);
 }
 
-#collapseWiki > .panel-body > .btn:hover, #collapseWiki > .panel-body > .btn:active, #collapseWiki > .panel-body > .btn:focus {
+#collapseWiki > .accordion-body > .btn:hover, #collapseWiki > .accordion-body > .btn:active, #collapseWiki > .accordion-body > .btn:focus {
   background-color: var(--white-color);
 }
 
@@ -64,6 +64,7 @@
   font-size: 1.2rem;
   font-family: var(--font-family);
   color: var(--dark-color);
+  border-radius: 0;
 }
 
 #wiki {
@@ -257,21 +258,25 @@
 }
 
 #collapseWiki .wikipedia-disclaimer {
-  padding: 0rem 1.9rem 0.9rem 1.9rem;
+  padding: 0rem 0.9rem 0rem 0.9rem; */
+  /* padding-top: 0rem;
+  padding-right: 1.9rem;
+  padding-bottom: 0.9rem;
+  padding-left: 1.9rem; */
   font-size: 14px;
   background-color: var(--secondary-light-color);
 }
 
-#collapseWiki .wikipedia-disclaimer a {
+#collapseWiki .wikipedia-terms a {
   text-decoration: underline;
 }
 
-#wiki-widget .panel-body-wrapper {
+#wiki-widget .accordion-body-wrapper {
   height: calc(100vh - 150px);
   overflow: hidden;
 }
 
-#wiki-widget .panel-body {
+#wiki-widget .accordion-body {
   height: 100%;
   overflow-y: auto;
 }

@@ -16,34 +16,28 @@ const WIKI = {
           wikipediaHTML: WIKI.wikipediaHTML
         }
       },
-      template: `<div id="wiki-widget" class="panel-group" role="tablist" aria-multiselectable="true">
-                  <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingWiki">
-                      <h2 class="mb-0">
-                        <button
-                        class="accordion-button accordion"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseWiki"
-                        aria-expanded="true"
-                        aria-controls="collapseWiki"
-                        >
-                          {{wikipediaCaption}}
-                        </button>
-                      </h2>
-                    </div>
-                    <div id="collapseWiki" class="accordion-collapse collapse show" role="tabpanel" aria-labelledby="headingWiki">
-                      <div class="accordion-body">
-                        <div v-if="succeeded" class="panel-body">
-                          <div id="wiki" class="panel mw-parser-output" role="tabpanel" aria-labelledby="headingWiki">
-                            <div v-html="wikipediaHTML"></div>
-                          </div>
-                          <div class="wikipedia-disclaimer versal">
-                            <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
-                          </div>
+      template: `<div id="wiki-widget" class="accordion" aria-multiselectable="true">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingWiki">
+                      <button
+                      class="accordion-button accordion"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseWiki"
+                      aria-expanded="true"
+                      aria-controls="collapseWiki"
+                      >
+                        {{wikipediaCaption}}
+                      </button>
+                    </h2>
+                    <div id="collapseWiki" class="accordion-collapse collapse show" aria-labelledby="headingWiki">
+                      <div v-if="succeeded" id="wiki" class="accordion-body mw-parser-output" aria-labelledby="headingWiki">
+                        <div v-html="wikipediaHTML"></div>
+                        <div class="wikipedia-disclaimer versal">
+                          <div v-html="wikipediaTermsAndConditions" class="wikipedia-terms"></div>
                         </div>
-                        <div class="wiki-missing" v-else>{{message}}</div>
                       </div>
+                      <div class="accordion-body wiki-missing" v-else>{{message}}</div>
                       <div v-if="succeeded" id="wikipedia-credit">
                         <a :href=wikipediaURL target="_blank" rel="noopener noreferrer">{{wikipediaLink}}</a>
                       </div>

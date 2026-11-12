@@ -9,6 +9,8 @@
   max-height: 400px;
   overflow: auto;
   background-color: var(--secondary-light-color);
+  border-radius: 0;
+  border: none;
 }
 
 /* Setting scrollbar style separately in Firefox */
@@ -282,7 +284,6 @@
 }
 
 #wikipedia-credit {
-  position: sticky;
   bottom: 0;
   border-top: 1px solid var(--light-color);
   background-color: var(--white-color);
